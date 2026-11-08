@@ -2,6 +2,7 @@
 import sys, wave, re, numpy as np
 from faster_whisper import WhisperModel
 path=sys.argv[1]; cuts=[float(x) for x in sys.argv[2].split(",")]; expected=sys.argv[3]
+allow=set(sys.argv[4].split(",")) if len(sys.argv)>4 else set()  # bilincli ikilemeler (or. "ayri ayri")
 w=wave.open(path); sr=w.getframerate(); a=np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(np.float32)/32768
 def db(seg): return 20*np.log10(np.sqrt((seg**2).mean())+1e-9)
 ok=True
@@ -25,7 +26,8 @@ got=[x for x in norm([w[2] for w in words]) if x]
 num={"1":"bir","2":"iki","3":"üç"}; got=[num.get(x,x) for x in got]
 exp=[x for x in norm(expected.split()) if x]
 print("  beklenen:",exp); print("  bulunan :",got)
-rep=[got[i] for i in range(1,len(got)) if got[i]==got[i-1]]
+rep=[got[i] for i in range(1,len(got)) if got[i]==got[i-1] and got[i] not in allow]
+if allow: print("  izinli ikileme:", sorted(allow))
 print("  ardisik tekrar:", rep or "yok"); ok&= not rep
 low=[w for w in words if w[3]<0.5]; print("  dusuk guvenli kelime:", [w[2] for w in low] or "yok")
 match = got==exp; ok&=match; print("  metin eslesmesi:", "TAM" if match else "FARKLI")
