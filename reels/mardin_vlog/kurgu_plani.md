@@ -139,3 +139,16 @@ Sessiz kliplerdeki "Altyazı M.K." ve "İzlediğiniz için teşekkür ederim" Wh
 7. **Ümit Abi kartı:** ✅ Teyit edildi. Kartta **ÜMİT KAVAK · @fetteho** yazıyor (kullanıcı adını ve kişiyi sen teyit ettin; kaynak: Hürriyet Daily News, “A tale of toys”)
 5. Videoda Gülbahar, diğer arkadaşın, Ümit Abi ve badem şekeri satıcısı yüzleriyle görünüyor. Paylaşım izinlerini senin teyit etmen gerekiyor
 6. Süre 2:22. Daha kısa (~60–90 sn) bir sürüm istersen hangi bölümlerin kalacağını söyle ya da ben öneri getireyim
+
+---
+## 9. FİNAL (onaylandı, render edildi)
+- **Süre 1:59,5** (2 dk istendi). Konuşmalara dokunulmadı; ara görüntüler kısaltıldı/çıkarıldı: kemerden giriş, kafelerin önünden yürüyüş, camdan manzara, merdivenden iniş, kahve montajından 4 kısa çekim, Mardin Hatırası aynası, puşiler, tadımlık ikramlar, gümüş vitrini; açılış manzaraları, bölünmüş ekran, minare ve kapanış yolu kısaltıldı. 2:23'lük liste: `araclar/edl_v2_uzun.py`
+- **Telefon numarası bulanıklaştırıldı** (bölünmüş ekranın sağ yarısı, üst 430 px; hiçbir karede okunmuyor)
+- Konum etiketi: eklenmedi (doğrulanmış bir konum adı yok; açılışta MARDİN başlığı var)
+- Çıktılar (repoya eklenmedi, `cikti/`): `Mardin_Vol2_muzikli.mp4` (kodla bestelenmiş Hicaz müziği), `Mardin_Vol2_muziksiz.mp4` (Instagram'dan şarkı eklemek için)
+- 1080×1920, 30 fps, H.264 CRF 17, AAC 256 kbps 48 kHz
+- **Son kontroller (çıkan dosya üzerinde):**
+  - Kesim kontrolü: GEÇTİ (41 kenar temiz, tekrar yok, metin bire bir)
+  - Son videonun sesi yeniden yazıya döküldü: ardışık tekrar **yok**
+  - Güvenli alan: **3584 karenin tamamında** yüz ihlali 0, Instagram arayüzü ihlali 0, grafik çakışması 0
+  - Ses: müzikli **−14,1 LUFS / −1,8 dBTP**, müziksiz **−14,0 LUFS / −2,3 dBTP**

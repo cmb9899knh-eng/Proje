@@ -54,7 +54,7 @@ def put(buf, sig, t, g=1.0):
 
 def sec_t(name): return next(x["t0"] for x in TL if x.get("sec") == name)
 T_RHY = sec_t("ANTİK KENT") - 0.02          # ritim girer (whip ile)
-T_COF0 = next(x["t0"] for x in TL if x["clip"] == "3165_a5bb"); T_COF1 = next(x["t1"] for x in TL if x["clip"] == "3234")
+T_COF0 = next(x["t0"] for x in TL if x["clip"] == "3165_a5bb"); T_COF1 = next(x["t1"] for x in TL if x["clip"] == "FOTO_KAFE")
 T_FIN = sec_t("MEZOPOTAMYA") - 0.02        # finale: ritim cekilir, ney + ud
 
 # --- dem: tum parca

@@ -181,7 +181,7 @@ def big_title(sub="VOL 2"):
 ICON = {"ANTİK KENT": "arch", "KAFE DURAĞI": "cup", "ÇARŞI": "bag", "MEYDAN": "pin", "BADEM ŞEKERİ": "candy",
         "MEZOPOTAMYA": "mount", "FOTOĞRAF MOLASI": "camera"}
 def _first(clip): return next(x for x in TL if x["clip"] == clip)
-EVENTS = [("title", _first("3294_ffe9")["t0"] + 0.15, _first("3148")["t1"] - 0.1, "VOL 2")]
+EVENTS = [("title", _first("3294_ffe9")["t0"] + 0.15, _first("3148")["t1"] - 0.1, "VOL 2")]   # kale + panorama uzerinde
 for i, x in enumerate(TL):
     if x.get("sec"):
         EVENTS.append(("badge", x["t0"] + 0.2, x["t0"] + 3.2, (x["sec"], ICON[x["sec"]])))
@@ -432,7 +432,10 @@ def seg_np(x, t):
     n = src_frame(x, t)
     if x["kind"].startswith("split"):
         other = x["kind"].split(":")[1]
-        a = read_np(x["clip"], n)[:, 270:810]; b = read_np(other, n)[:, 270:810]
+        a = read_np(x["clip"], n)[:, 270:810]; b = read_np(other, n)[:, 270:810].copy()
+        # gizlilik: tabeladaki telefon numarasi (sag yari, ust ~430 px) guclu bulaniklik, alt kenarda yumusak gecis
+        bl = cv2.GaussianBlur(b[:520], (0, 0), 38); m = np.clip((470 - np.arange(520)) / 60.0, 0, 1)[:, None, None]
+        b[:520] = (bl * m + b[:520] * (1 - m)).astype(np.uint8)
         p = ease_out((t - x["t0"]) / 0.3); fr = np.full((H, W, 3), 255, np.uint8)
         oa = int(-H * (1 - p)); ob = int(H * (1 - p))
         fr[max(0, oa):H + min(0, oa), 0:540] = a[max(0, -oa):H - max(0, oa)]
@@ -529,11 +532,13 @@ if __name__ == "__main__":
         ts = [float(v) for v in sys.argv[2].split(",")]
         frames = [round(t * FPS) for t in ts]
     else:
-        frames = range(N)
         import subprocess
+        if mode == "part":   # paralel render: python3 render.py part <bas_kare> <son_kare> <cikti.mp4>
+            frames = range(int(sys.argv[2]), min(N, int(sys.argv[3]))); OUTV = sys.argv[4]
+        else: frames = range(N); OUTV = "work/video_noaudio.mp4"
         pipe = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
                                  "-i", "-", "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p",
-                                 "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "work/video_noaudio.mp4"],
+                                 "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", OUTV],
                                 stdin=subprocess.PIPE)
     viol = 0; checked = 0
     for n in frames:
