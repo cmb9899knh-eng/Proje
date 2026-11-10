@@ -49,6 +49,11 @@ EDL = [
  S("3288",      0.20, 1.90, "split:3292", "Tespih | Şal (bölünmüş ekran)", amb=-14, tr="cut"),
  S("3289",      0.50, 1.80, "ara", "Puşiler", amb=-14, tr="cut"),
  S("3291",      0.30, 2.30, "ara", "Minare", amb=-14, tr="dissolve", kb=1.06),
+ S("3293_01d3", 0.1667, 2.9333, "konusma", "Kimi yakaladık yolda?", tr="whip", aud=("3293_01d3_temiz", None)),
+ S("3293_01d3", 4.30, 7.70, "ara", "Ümit Abi tezgâhında", amb=-18, tr="cut",
+   card=("ÜMİT ABİ", "oyuncaklarla köy çocuklarını mutlu ediyor")),
+ S("3293_d30e", 0.8667, 3.0667, "konusma", "Ümit abiyi çok seviyorum.", tr="cut", aud=("3293_d30e_temiz", None)),
+ S("3293_d30e", 3.1333, 5.7333, "konusma", "Yeri açılınca lütfen gelin.", tr="punch", aud=("3293_d30e_temiz", 3.16)),
  S("3295",      0.10, 4.67, "konusma", "Şu an sanırım çarşıda geziyoruz. Evet, meydandayız arkadaşlar.", tr="whip"),
  S("3295",      5.37, 6.83, "konusma", "Çok güzel yerler var.", tr="cut"),
  S("3296",      4.25, 5.85, "ara", "Meydan sokağı", amb=-14, tr="cut", kb=1.05, sec="MEYDAN"),
@@ -74,7 +79,7 @@ EDL = [
 def clip_video(c): return f"sdr/{c}.mp4"
 def aud_src(x):
     """Segmentin ses kaynagi: (klip, kaynak_bas). 'aud' verilmisse goruntuden farkli klipten dis ses."""
-    if x.get("aud"): return x["aud"][0], x["aud"][1]
+    if x.get("aud"): return x["aud"][0], (x["s"] if x["aud"][1] is None else x["aud"][1])   # None: ayni klibin temizlenmis sesi, ayni zaman
     return x["clip"], x["s"]
 def clip_audio(c): return f"a48/{c}.wav" if os.path.exists(f"a48/{c}.wav") else f"a48b/{c}.wav"
 

@@ -1,7 +1,7 @@
 # Mardin Vol 2 – Reels kurgu planı v2 (ONAY BEKLİYOR)
 
-Kaynak: 48 klip (ilk 16 + 32 yeni). Aynı IMG numaralı dosyalar tek uzun kaydın ~10 sn'lik ardışık parçaları.
-Hepsi dikey HDR/HLG → SDR ton eşleme, 1080×1920, 30 fps. **Çıkış: 2:10,3 (130,3 sn)**. Reels sınırı 3 dk.
+Kaynak: 51 klip (ilk 16 + 32 + Ümit Abi 3 parça). Aynı IMG numaralı dosyalar tek uzun kaydın ~10 sn'lik ardışık parçaları.
+Hepsi dikey HDR/HLG → SDR ton eşleme, 1080×1920, 30 fps. **Çıkış: 2:21,3 (141,3 sn)**. Reels sınırı 3 dk.
 Konuşma hızlandırılmadı. Sadece boşluklar, tekrarlar, yarım ve kesik cümleler atıldı.
 
 ## 1. Tekrar / temizlik kararları
@@ -24,6 +24,7 @@ Konuşma hızlandırılmadı. Sadece boşluklar, tekrarlar, yarım ve kesik cüm
 | 3301 "Gümüş, şarap, kuruyemiş… meşhur olanlar Mardin'de" ↔ 3302 "Aynı zamanda Mardin'de Süryani şarabı meşhur, Süryani çöreği meşhur. Bir de… hediyelik / şallar… Gümüş, bakır çok talep ediliyor." | Aynı fikir iki kez | Son çekim 3302: "Aynı zamanda Mardin'de Süryani şarabı meşhur." "…çöreği meşhur. Bir de…" geçişinde sessizlik yok. "Şallar" parça başında, "ediliyor" parça sonunda kesik. Süryani çöreği tabelası ve gümüş vitrini görüntüyle gösteriliyor |
 | 3309 "…getirdim. Mezopotamya'nın eşsizliğinde." | Son kelime klip sonunda kesik | "…ziyaret edilen yere getirdim." ile bitiyor |
 | 3291 "Ben sanırım…" | Yarım cümle | Atıldı |
+| 3293 Ümit Abi (3 parça, yeni) | "Kimi yakaladık yolda?" / tezgâhta "on lira, on lira… on tane alan dokuz lira" / "Ümit abiyi çok seviyorum. Yeri açılınca lütfen gelin. (Kaya'ya/Tay'ın?) sizi bekliyoruz. Tam açılınca işte." / 6409: "tespihler yüz liraymış… on lira mı… yüzmüş lan" | Kalanlar: "Kimi yakaladık yolda?" → Ümit Abi tezgâhta (ortam sesi, **altyazısız**, fiyat rakamları ekrana yazılmadı) → "Ümit abiyi çok seviyorum. Yeri açılınca lütfen gelin." Belirsiz kelimeli cümle ve 6409'daki dağınık fiyat konuşması atıldı. Kısa saçlının sesi ve "Kimi yakaladık yolda?" **gürültüden temizlendi** (aşağıda) |
 | Uzun boşluklar | 3151 (0,7 + 0,6 sn), 3150 (1 sn), 3160 (1,5 sn), 3163 (0,4 sn), 3286 (1,4 + 0,45 sn), 3295 (0,7 sn), 3297 (0,8 sn), 3299 (0,3 sn), 3308 (0,45 sn) | Kırpıldı |
 
 Sessiz kliplerdeki "Altyazı M.K." ve "İzlediğiniz için teşekkür ederim" Whisper uydurması. Hiçbiri altyazıya girmedi.
@@ -82,38 +83,44 @@ Sessiz kliplerdeki "Altyazı M.K." ve "İzlediğiniz için teşekkür ederim" Wh
 | 71.87–73.57 | 3288 0.20–1.90 | Tespih | Şal (bölünmüş ekran) | kesme | bölünmüş ekran, TESPİH / ŞAL etiketleri | — | ortam -14 dB · whoosh + tık |
 | 73.57–74.87 | 3289 0.50–1.80 | Puşiler | kesme | — | — | ortam -14 dB |
 | 74.87–76.87 | 3291 0.30–2.30 | Minare | çapraz geçiş, Ken Burns ×1.06 | — | — | ortam -14 dB |
-| 76.87–81.43 | 3295 0.10–4.67 | Şu an sanırım çarşıda geziyoruz. Evet, meydandayız arkadaşlar. | **whip-pan** + ışık sızması | — | ŞU AN SANIRIM ÇARŞIDA GEZİYORUZ EVET MEYDANDAYIZ ARKADAŞLAR | konuşma · whoosh |
-| 81.43–82.90 | 3295 5.37–6.83 | Çok güzel yerler var. | kesme | — | ÇOK GÜZEL YERLER VAR | konuşma |
-| 82.90–84.50 | 3296 4.27–5.87 | Meydan sokağı | kesme, Ken Burns ×1.05 | **MEYDAN** rozeti (83.1–84.4) | — | ortam -14 dB · pop |
-| 84.50–87.30 | 3297 1.10–3.90 | Mardin'in meşhur badem şekerleri. | kesme | **BADEM ŞEKERİ** rozeti (84.7–87.7) | MARDİN'İN MEŞHUR BADEM ŞEKERLERİ | konuşma · pop |
-| 87.30–89.87 | 3297 4.73–7.30 | Nereden geçerseniz ikram ediliyor. | kesme | — | NEREDEN GEÇERSENİZ İKRAM EDİLİYOR | konuşma |
-| 89.87–92.37 | 3298_c3fc 5.40–7.90 | Tadımlık ikramlar | kesme | — | — | ortam kapalı |
-| 92.37–94.70 | 3299_9f0d 2.17–4.50 | Bu yolda yürüyün, | kesme | — | BU YOLDA YÜRÜYÜN | konuşma |
-| 94.70–98.33 | 3299_9f0d 4.80–8.43 | aç olun, doyuyorsunuz yol bitmeden. | kesme + %7 punch-in | — | AÇ OLUN DOYUYORSUNUZ YOL BİTMEDEN | konuşma |
-| 98.33–102.97 | 3302_177a 0.07–4.70 | Aynı zamanda Mardin'de Süryani şarabı meşhur. | kesme | — | AYNI ZAMANDA MARDİN'DE SÜRYANİ ŞARABI MEŞHUR | konuşma |
-| 102.97–104.67 | 3301_1f5b 6.30–8.00 | Hakiki Süryani Çöreği tabelası | kesme | — | — | ortam kapalı |
-| 104.67–106.47 | 3301_852a 6.50–8.30 | Gümüş vitrini | kesme | — | — | ortam kapalı |
-| 106.47–110.30 | 3308_6bd7 0.20–4.03 | İşte size bahsettiğim yerler, buralar. | **whip-pan** + ışık sızması | **MEZOPOTAMYA** rozeti (106.7–109.7) | İŞTE SİZE BAHSETTİĞİM YERLER BURALAR | konuşma · whoosh, pop |
-| 110.30–112.73 | 3308_6bd7 4.50–6.93 | Mezopotamya, Dicle. | kesme, Ken Burns ×1.04 | — | MEZOPOTAMYA DİCLE | konuşma |
-| 112.73–118.87 | 3309_8598 0.33–6.47 | Şimdi Gülbahar'ı Mardin'de en çok fotoğraf çekmek için ziyaret edilen yere getirdim. | kesme | — | ŞİMDİ GÜLBAHAR'I MARDİN'DE EN ÇOK FOTOĞRAF ÇEKMEK İÇİN ZİYARET EDİLEN YERE GETİRDİM | konuşma |
-| 118.87–123.07 | foto1_teras.jpg, foto2_teras.jpg, foto4_teras.jpg | Teras fotoğrafları (deklanşör + polaroid) | flaş | **FOTOĞRAF MOLASI** rozeti (119.1–122.1); 3 polaroid fotoğraf, deklanşör + flaş | — | müzik · tık, pop, deklanşör ×3 |
-| 123.07–125.53 | 3309_790d 4.73–7.20 | Ova → kubbeler | çapraz geçiş, Ken Burns ×1.06 | — | — | ortam -14 dB |
-| 125.53–127.10 | 3308_699e 0.47–2.03 | Çok güzel. | çapraz geçiş, Ken Burns ×1.05 | — | ÇOK GÜZEL | konuşma |
-| 127.10–130.30 | 3359_9eae 1.00–4.20 | Yol (kapanış) | çapraz geçiş | **MARDİN · BIR EFSANE** başlık (127.5–130.2) | — | ortam -16 dB · parıltı |
+| 76.87–79.63 | 3293_01d3 0.17–2.93 | Kimi yakaladık yolda? | **whip-pan** + ışık sızması | — | KİMİ YAKALADIK YOLDA? | konuşma (**gürültüsü temizlenmiş**) · whoosh |
+| 79.63–83.03 | 3293_01d3 4.30–7.70 | Ümit Abi tezgâhında | kesme | **ÜMİT ABİ** isim kartı: “oyuncaklarla köy çocuklarını mutlu ediyor” (79.9–82.9) | — | ortam -18 dB · parıltı |
+| 83.03–85.23 | 3293_d30e 0.87–3.07 | Ümit abiyi çok seviyorum. | kesme | — | ÜMİT ABİYİ ÇOK SEVİYORUM | konuşma (**gürültüsü temizlenmiş**) |
+| 85.23–87.83 | 3293_d30e 3.13–5.73 | Yeri açılınca lütfen gelin. | kesme + %7 punch-in | — | YERİ AÇILINCA LÜTFEN GELİN | konuşma (**gürültüsü temizlenmiş**) |
+| 87.83–92.40 | 3295 0.10–4.67 | Şu an sanırım çarşıda geziyoruz. Evet, meydandayız arkadaşlar. | **whip-pan** + ışık sızması | — | ŞU AN SANIRIM ÇARŞIDA GEZİYORUZ EVET MEYDANDAYIZ ARKADAŞLAR | konuşma · whoosh |
+| 92.40–93.87 | 3295 5.37–6.83 | Çok güzel yerler var. | kesme | — | ÇOK GÜZEL YERLER VAR | konuşma |
+| 93.87–95.47 | 3296 4.27–5.87 | Meydan sokağı | kesme, Ken Burns ×1.05 | **MEYDAN** rozeti (94.1–95.4) | — | ortam -14 dB · pop |
+| 95.47–98.27 | 3297 1.10–3.90 | Mardin'in meşhur badem şekerleri. | kesme | **BADEM ŞEKERİ** rozeti (95.7–98.7) | MARDİN'İN MEŞHUR BADEM ŞEKERLERİ | konuşma · pop |
+| 98.27–100.83 | 3297 4.73–7.30 | Nereden geçerseniz ikram ediliyor. | kesme | — | NEREDEN GEÇERSENİZ İKRAM EDİLİYOR | konuşma |
+| 100.83–103.33 | 3298_c3fc 5.40–7.90 | Tadımlık ikramlar | kesme | — | — | ortam kapalı |
+| 103.33–105.67 | 3299_9f0d 2.17–4.50 | Bu yolda yürüyün, | kesme | — | BU YOLDA YÜRÜYÜN | konuşma |
+| 105.67–109.30 | 3299_9f0d 4.80–8.43 | aç olun, doyuyorsunuz yol bitmeden. | kesme + %7 punch-in | — | AÇ OLUN DOYUYORSUNUZ YOL BİTMEDEN | konuşma |
+| 109.30–113.93 | 3302_177a 0.07–4.70 | Aynı zamanda Mardin'de Süryani şarabı meşhur. | kesme | — | AYNI ZAMANDA MARDİN'DE SÜRYANİ ŞARABI MEŞHUR | konuşma |
+| 113.93–115.63 | 3301_1f5b 6.30–8.00 | Hakiki Süryani Çöreği tabelası | kesme | — | — | ortam kapalı |
+| 115.63–117.43 | 3301_852a 6.50–8.30 | Gümüş vitrini | kesme | — | — | ortam kapalı |
+| 117.43–121.27 | 3308_6bd7 0.20–4.03 | İşte size bahsettiğim yerler, buralar. | **whip-pan** + ışık sızması | **MEZOPOTAMYA** rozeti (117.6–120.6) | İŞTE SİZE BAHSETTİĞİM YERLER BURALAR | konuşma · whoosh, pop |
+| 121.27–123.70 | 3308_6bd7 4.50–6.93 | Mezopotamya, Dicle. | kesme, Ken Burns ×1.04 | — | MEZOPOTAMYA DİCLE | konuşma |
+| 123.70–129.83 | 3309_8598 0.33–6.47 | Şimdi Gülbahar'ı Mardin'de en çok fotoğraf çekmek için ziyaret edilen yere getirdim. | kesme | — | ŞİMDİ GÜLBAHAR'I MARDİN'DE EN ÇOK FOTOĞRAF ÇEKMEK İÇİN ZİYARET EDİLEN YERE GETİRDİM | konuşma |
+| 129.83–134.03 | foto1_teras.jpg, foto2_teras.jpg, foto4_teras.jpg | Teras fotoğrafları (deklanşör + polaroid) | flaş | **FOTOĞRAF MOLASI** rozeti (130.0–133.0); 3 polaroid fotoğraf, deklanşör + flaş | — | müzik · tık, pop, deklanşör ×3 |
+| 134.03–136.50 | 3309_790d 4.73–7.20 | Ova → kubbeler | çapraz geçiş, Ken Burns ×1.06 | — | — | ortam -14 dB |
+| 136.50–138.07 | 3308_699e 0.47–2.03 | Çok güzel. | çapraz geçiş, Ken Burns ×1.05 | — | ÇOK GÜZEL | konuşma |
+| 138.07–141.27 | 3359_9eae 1.00–4.20 | Yol (kapanış) | çapraz geçiş | **MARDİN · BIR EFSANE** başlık (138.5–141.2) | — | ortam -16 dB · parıltı |
 
 ## 5. Yerleşim güvenliği (`araclar/render.py`, her karede)
 - Yüz: YuNet, 48 klipte kare kare. Kutular başörtüsü/saç ve çene payıyla genişletildi. **Zoom/punch-in/whip kaymasına göre dönüştürülerek** kontrol ediliyor. Tek karelik ya da elin üstündeki yanlış algılamalar elendi. Uzak yayalar korunuyor
 - Rozetler **yalnızca başın gerçekten üstüne** konuyor. Yer yoksa aynı çekim içinde yer olan ana kaydırılıyor, o da yoksa yüzün yanına. Rozet yalnızca kendi çekiminde görünüyor (yanlış etiketleme yok)
 - Instagram arayüzü: üst 230 px, alt 420 px (y>1500), sağ buton şeridi (x>940) boş. Pop animasyonu taşması dâhil
 - Grafik–grafik çakışması kontrol ediliyor
-- **41 örnek karede: yüz ihlali 0, arayüz ihlali 0, çakışma 0.** Tam render'da 3909 karenin hepsi kontrol edilecek
+- **41 örnek karede: yüz ihlali 0, arayüz ihlali 0, çakışma 0.** Tam render'da 4238 karenin hepsi kontrol edilecek
 
 ## 6. Ses
-- Konuşma: kaynak seviyesi, 80 Hz high-pass, kesimlerde 12 ms fade
+- Konuşma: **bölüm bölüm seviye eşitleme** (her bölüm −18 dB medyana; önce bölümler arası fark 26 dB'di, şimdi 5,5 dB) + yumuşak kompresör, 80 Hz high-pass, kesimlerde 12 ms fade
+- **Ses temizleme (Ümit Abi bölümü):** Spektral gürültü kapılama (klibin en sessiz kısımlarından gürültü profili), 3 kHz netlik, tıslama kısma, kompresör. Gürültü tabanı **−46 → −58,8 dB** (kısa saçlı) ve **−45 → −58,1 dB** ("Kimi yakaladık yolda?"). Anlaşılırlık korundu (Whisper güveni 0,93 → 0,92 / 0,98 → 0,98). Dinle: `onizleme/ses_temizleme_once_sonra.m4a` (önce, kısa sessizlik, sonra)
+- Denge: ara görüntü/müzik bölümleri konuşmadan ~7 dB aşağıda
 - Ara görüntü ortam sesi: −12…−16 dB. İçinde başka konuşma olan ara görüntülerde kapalı
 - SFX (hepsi numpy sentezi, telifsiz): whoosh (whip), pop (rozet), parıltı (başlık), tık (flaş/bölünmüş ekran), deklanşör (fotoğraflar)
 - **Müzik (karar bekliyor, aşağıda soru 1):** Kodla bestelenmiş "Mardin havası". Hicaz makamı. Açılış ve finalde ney + dem, Antik Kent'ten itibaren darbuka + ud ostinatosu, kahve montajında daha dolu ritim. Konuşma altında ~−11 dB kısılıyor. Dinle: `onizleme/muzik_ornegi_30sn.m4a`
-- Seviye: müzikli miks **−14,1 LUFS / −2,3 dBTP**, müziksiz miks **−14,1 LUFS / −2,3 dBTP**
+- Seviye: müzikli miks **−14,1 LUFS / −1,8 dBTP**, müziksiz miks **−14,0 LUFS / −2,3 dBTP**
 
 ## 7. Haklar / doğrulama
 - Eklenen dış görsel, logo, kişi görseli, meme, arşiv video: **yok**. Görünen tabela ve logolar senin çekiminde zaten var
@@ -129,5 +136,6 @@ Sessiz kliplerdeki "Altyazı M.K." ve "İzlediğiniz için teşekkür ederim" Wh
    (c) İkisi birden: müzikli ve müziksiz iki dosya
 3. **Bölünmüş ekrandaki dükkân telefon numarası** (sağ üst tabela): bulanıklaştırayım mı?
 4. **Minare:** etiket koymadım. "Ulu Camii" yazmamı istersen teyit et
-5. Videoda Gülbahar, diğer arkadaşın ve badem şekeri satıcısı yüzleriyle görünüyor. Paylaşım izinlerini senin teyit etmen gerekiyor
-6. Süre 2:10. Daha kısa (~60–90 sn) bir sürüm istersen hangi bölümlerin kalacağını söyle ya da ben öneri getireyim
+7. **Ümit Abi kartı:** "@fetteho" kullanıcı adını internette doğrulayamadım. Benzer kişi: Güneydoğu'da oyuncak dağıtan Ümit Kavak (Hürriyet Daily News), ama aynı kişi olduğu teyit edilemedi. Kartta şimdilik "ÜMİT ABİ · oyuncaklarla köy çocuklarını mutlu ediyor" yazıyor. Kullanıcı adının doğru yazımını (ve istersen soyadını) teyit edersen ekleyeyim
+5. Videoda Gülbahar, diğer arkadaşın, Ümit Abi ve badem şekeri satıcısı yüzleriyle görünüyor. Paylaşım izinlerini senin teyit etmen gerekiyor
+6. Süre 2:21. Daha kısa (~60–90 sn) bir sürüm istersen hangi bölümlerin kalacağını söyle ya da ben öneri getireyim

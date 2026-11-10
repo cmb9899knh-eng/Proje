@@ -24,6 +24,9 @@ for x in TL:
     if x["kind"] == "foto": continue
     if x["kind"] == "konusma":
         c, s0 = aud_src(x); a = load(c)[round(s0 * SR):round(s0 * SR) + n].copy()
+        # konusma seviyesi esitleme: her bolumun konusma medyani -18 dB (kazanc -12..+16 dB)
+        d = np.array([20 * np.log10(np.sqrt((a[i:i + 960] ** 2).mean()) + 1e-9) for i in range(0, len(a) - 960, 960)])
+        med = np.median(d[d > d.max() - 25]); a *= db(float(np.clip(-18 - med, -12, 16)))
         f = int(0.012 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f)
         dlg[o:o + len(a)] += a; speech[o:o + len(a)] = 1
     elif x.get("amb") is not None:
@@ -33,6 +36,15 @@ for x in TL:
         f = int(0.06 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f)
         amb[o:o + len(a)] += a * db(x["amb"])
 dlg = hp(dlg, 80); amb = hp(amb, 120)
+def comp(x, thr=-20, ratio=2.5, att=0.004, rel=0.10, hop=192):
+    """Konusma izine yumusak kompresor (seviye esitlemeden kalan farklari toparlar)."""
+    aa, ar = np.exp(-hop / (att * SR)), np.exp(-hop / (rel * SR)); e = 0.0; g = []
+    for i in range(0, len(x), hop):
+        lv = 20 * np.log10(np.sqrt((x[i:i + hop] ** 2).mean()) + 1e-9)
+        tg = 0 if lv < thr else (thr + (lv - thr) / ratio) - lv
+        k = aa if tg < e else ar; e = k * e + (1 - k) * tg; g.append(e)
+    return (x * np.repeat(10 ** (np.array(g) / 20), hop)[:len(x)]).astype(np.float32)
+dlg = comp(dlg)
 
 # ---------------------------------------------------------------- SFX sentezi
 def env_ad(n, a, d):
@@ -70,7 +82,7 @@ def put(sig, t, g):
 import render                                  # rozet zamanlari (yerlesimde kaydirilmis olabilir)
 render.plan()
 for kind, t0, t1, c in render.EVENTS:
-    put(shimmer() if kind == "title" else pop(), t0 - 0.02, -20 if kind == "title" else -19)
+    put(shimmer() if kind in ("title", "card") else pop(), t0 - 0.02, -20 if kind in ("title", "card") else -19)
 for x in TL:
     tr = x.get("tr")
     if tr == "whip": put(whoosh(0.42, True), x["t0"] - 0.24, -20)
@@ -86,8 +98,8 @@ mus = np.zeros(NS, np.float32)
 if MUSIC:
     w = wave.open("work/music_only.wav"); m = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
     m = m[:NS]; mus[:len(m)] = m
-    duck = 1 - 0.72 * np.clip(uniform_filter1d(speech, int(0.35 * SR)), 0, 1)     # konusma altinda ~ -11 dB
-    mus *= duck * db(-13)
+    duck = 1 - 0.82 * np.clip(uniform_filter1d(speech, int(0.35 * SR)), 0, 1)     # konusma altinda ~ -15 dB
+    mus *= duck * db(-1)
 
 mix = dlg + amb + sfx + mus
 st = np.stack([mix, mix], 1)

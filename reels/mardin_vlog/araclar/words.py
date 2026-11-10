@@ -34,6 +34,10 @@ for x in timeline():
             i = j
         else: i += 1
     isl = [v for v in isl if v[1] - v[0] > 0.08]
+    pk = env.max() if len(env) else 0      # konusma olmayan zayif sesleri (gurultu, uzak konusma) adacik sayma
+    if isl and isl[0][1] - isl[0][0] > 1.0:   # uzun ilk adacik gurultuyle baslamissa: yuksek konusmanin (tepe-12 dB) basladigi yere cek
+        i0 = int(isl[0][0] * 100); loud = next((k for k in range(i0, int(isl[0][1] * 100)) if env[k] > pk - 12), i0)
+        if (loud - i0) * 0.01 > 0.5: isl[0][0] = loud * 0.01 - 0.03
     # kelimeleri adaciklara dagit: Whisper orta noktasina en yakin adacik, sira korunarak
     D = len(seg) / sr
     if isl and toks:

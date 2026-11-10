@@ -186,6 +186,17 @@ for i, x in enumerate(TL):
     if x.get("sec"):
         EVENTS.append(("badge", x["t0"] + 0.2, x["t0"] + 3.2, (x["sec"], ICON[x["sec"]])))
 EVENTS.append(("title", TL[-1]["t0"] + 0.4, DUR - 0.05, "bir efsane"))
+for x in TL:
+    if x.get("card"): EVENTS.append(("card", x["t0"] + 0.25, x["t1"] - 0.1, x["card"]))
+def card_img(c, scale=1.0):
+    """Isim karti: beyaz kart, kirmizi serit, baslik + alt satir."""
+    t1 = text_img(c[0], ImageFont.truetype(FB, int(60 * scale)), INK); t2 = text_img(c[1], ImageFont.truetype(FXB, int(32 * scale)), (90, 90, 95, 255))
+    pad = int(28 * scale); bar = int(12 * scale); w = max(t1.width, t2.width) + 2 * pad + bar; h = t1.height + t2.height + int(2.6 * pad)
+    im = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle((0, 0, w - 1, h - 1), radius=int(22 * scale), fill=(255, 255, 255, 240))
+    d.rounded_rectangle((0, 0, bar + 20, h - 1), radius=int(22 * scale), fill=RED); d.rectangle((bar, 0, bar + 20, h - 1), fill=(255, 255, 255, 240))
+    im.alpha_composite(t1, (bar + pad, pad)); im.alpha_composite(t2, (bar + pad, pad + t1.height + int(0.5 * pad)))
+    return with_shadow(im)
 def seg_by_clip(clip, kind=None):
     return next(x for x in TL if x["clip"] == clip and (kind is None or x["kind"].startswith(kind)))
 SPLIT = seg_by_clip("3288", "split")
@@ -269,9 +280,11 @@ def plan():
     secs = [x["t0"] for x in TL if x.get("sec")] + [DUR]
     for k, (kind, t0, t1, c) in enumerate(EVENTS):
         res = None
-        if kind == "title":
-            w, h, pad = inner(big_title(c)); pos = place(w, h, t0, t1, "top")
-            if pos: res = (pos, (w, h), 1.0)
+        if kind in ("title", "card"):
+            for sc in ((1.0,) if kind == "title" else (1.0, 0.85, 0.72)):
+                w, h, pad = inner(big_title(c) if kind == "title" else card_img(c, sc))
+                W2, H2 = int(w * OV), int(h * OV); pos = place(W2, H2, t0, t1, "top")
+                if pos: res = ((pos[0] + (W2 - w) / 2, pos[1] + (H2 - h) / 2), (w, h), sc); break
         else:   # rozet: basin ustunde yer olan ilk ana kaydir (ayni bolum icinde), yoksa hic koyma
             # rozet yalnizca kendi bolumunun AYNI KLIP segmentlerinde gorunur (yanlis etiketleme olmasin)
             x0 = seg_at(t0); i = TIDX[id(x0)]
@@ -454,7 +467,7 @@ def overlay(t):
     for k, (kind, t0, t1, c) in enumerate(EVENTS):
         if not (t0 <= t < t1) or PLACEMENT[("ev", k)] is None: continue
         pos, (w, h), sc = PLACEMENT[("ev", k)]
-        im, pad = big_title(c) if kind == "title" else badge(*c, scale=sc)
+        im, pad = big_title(c) if kind == "title" else (card_img(c, sc) if kind == "card" else badge(*c, scale=sc))
         a_in = ease_back((t - t0) / 0.3); a_out = 1 - ease_out((t - (t1 - 0.2)) / 0.2) if t > t1 - 0.2 else 1
         s_ = max(0.01, a_in * a_out)
         im2 = im.resize((max(1, int(im.width * s_)), max(1, int(im.height * s_))), Image.LANCZOS)
