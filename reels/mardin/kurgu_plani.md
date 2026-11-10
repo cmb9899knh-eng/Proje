@@ -1,70 +1,75 @@
-# Mardin Gece Yürüyüşü – Reels kurgu planı (ONAY BEKLİYOR)
+# Mardin Gece Yürüyüşü – Tanıtım Reels kurgu planı v2 (ONAY BEKLİYOR)
 
-Çıkış: 1080×1920, 30 fps, **30,5 sn**, HDR (HLG) → SDR ton eşleme, ses −14 LUFS / ≤ −1,5 dBTP
+Çıkış: 1080×1920, 30 fps, **47,5 sn**, HDR (HLG) → SDR ton eşleme, ses **−14,0 LUFS / −1,5 dBTP**
+Malzeme: 35 yükleme → **32 farklı çekim** (iki IMG_3060 ve IMG_2945'in iki kaydı birebir aynı dosya). Kurguda 26 çekim kullanıldı.
+Müzik 120 BPM; tüm kurgu kesimleri vuruşa (0,5 sn) oturuyor.
 
-Kaynak harfleri: A = IMG_2906 (minare) · B = IMG_2907 (merdiven) · C = IMG_2945 (1. kayıt, konuşma) ·
-D = IMG_2945 (2. kayıt, konuşma + sokak) · E = IMG_2946 (sokak) · F = IMG_2948 (sokak)
-
-## 1. Kesim kararları
-| Kaynak | Karar | Neden |
+## 1. Konuşma kesimleri (hız değişikliği YOK)
+| Kaynak | Tutulan | Atılan ve nedeni |
 |---|---|---|
-| A 0–1,5 / 5,5–16 | ✂️ | Minarenin en sabit 4 sn'si alındı |
-| A sesi | 🔇 | Arka planda telefon konuşması var ("Selam, ona da selamlar… Dinliyorum aşkım"): kapatıldı, yerine müzik |
-| B 2,6–5,1 | ✅ | Merdivenden inen kişi; görüntü karanlıktı, aydınlatıldı |
-| C 0–0,93 | ✂️ | Kamera dönüşü ve sessizlik |
-| C 0,93–6,14 | ✅ | "Evet şimdi meydanın üst sokağından yürümeye devam ediyoruz. Nereye gidiyoruz?" |
-| C 6,14–6,38 | ✂️ | 0,7 sn'lik boşluğun 0,24 sn'si kısaltıldı (doğal nefes payı kaldı) |
-| C 6,38–9,622 | ✅ | "Birazcık çarşının ortasına doğru gideceğiz." ("z" sesi 9,61'de bitiyor, kesim 9,622'de) |
-| C 9,63–10,04 | ✂️ | Bir sonraki kelimenin başı (yarım) |
-| D 0–2,105 | ✂️ | "…laklar ve kafeler bizi bekliyor olacak": **ilk kelime kayıt başında kesik** (kesik hece kuralı gereği atıldı) |
-| D 2,105–9,50 | ✅ | "Yolu gösterirsen daha güzel bir görüntü olur aslında. Şöyle göstereyim sizlere." + kamera dönüşüyle sokağın açılışı |
-| D 2,105–2,152 ve 5,90–6,36 | 🔉 −30 dB | Konuşma değil: nefes/hışırtı ve arkadan çok kısık bir mırıltı ("evet"e benziyor). Görüntü akışı bozulmasın diye kesilmedi, sesi kısıldı |
-| E 1–4, F 4,7–6,7 ve 0–3,2 | ✅ | Işıklı taş sokaklar (manzara) |
+| IMG_2949 | 0,30–5,05 "Şimdi Mardin neyle meşhur? Tabii ki bu güzel sokaklarıyla." | 0–0,30: kayıt "Evet" kelimesinin ortasından başlıyor (kesik). 5,38–8,5: "Bu sokakların dili olsa da…" yarım cümle |
+| IMG_2954 | 0,30–1,955 "E bir de Mardin'in neyi meşhur?" | 1,98–2,55: anlaşılmayan bir kelime (Whisper "Tinda?" p=0,41); altyazıya yanlış şey yazmamak için atıldı |
+| IMG_2954 | 3,25–6,00 "Tabii ki bu merdivenleri." (görüntü: IMG_2907 merdivenler) | – |
+| IMG_2954 | 6,82–7,45 "Ay…" + 7,94–8,66 "çok yorucu." | 7,45–7,94 boşluk (0,5 sn) kısaltıldı; 8,74 sonrası nefes ve gürültü |
+| IMG_2973 | 0,20–2,76 "Karıştır, gülümse." | – |
+| IMG_2945 (2. kayıt) | 2,105–9,00 "Yolu gösterirsen daha güzel bir görüntü olur aslında. Şöyle göstereyim sizlere." | 0–2,1: ilk kelime kesik ("…laklar ve kafeler…"); nefes (2,105–2,152) ve arka plandaki mırıltı (5,90–6,36) −30 dB'ye indirildi |
+| Kullanılmayan konuşmalar | – | IMG_2945 1. kayıt ("Evet şimdi meydanın üst sokağından…"): "Evet şimdi" 2949 ile tekrar edeceği ve video uzayacağı için. 2972 "Çok açmışsın" iki kez tekrarlanıyor. 2968 ve 2971 düşük güvenle anlaşılıyor; bu çekimler müzik altında, altyazısız kullanıldı. 2906 (minare) sesinde arka planda telefon konuşması var; kapatıldı |
 
-Hız değişikliği **yok**. Ses kesimlerinde 8 ms yumuşak geçiş (tık sesi olmasın).
+Bütün konuşma parçaları aynı seviyeye eşitlendi (−24 dB). Uzaktan gelen "Karıştır, gülümse" de duyulur.
 
 ## 2. Kesim kontrolü (`araclar/cutcheck.py`): GEÇTİ
-- Kesim 5,210 sn: önce −63,9 dB / sonra −68,1 dB → temiz
-- Kesim 8,452 sn: önce −42,8 dB / sonra −86,0 dB → temiz
-- Baş −62,8 dB, son −63,8 dB → temiz
-- Whisper large-v3 ile yeniden transkripsiyon, beklenen metinle **TAM** eşleşme
-- Ardışık tekrar yok, tekrar eden ifade yok, düşük güvenli kelime yok
-- İlk denemede kontrol **KALDI**: Whisper kesim ardında "Çok" (p=0,08) ve D içinde "Evet" (p=0,32) duydu. Nedenler nefes ve arka plan mırıltısıydı; sesleri kısıldı, kontrol yeniden çalıştırıldı ve geçti. Ayrıntı: `araclar/cutcheck_sonuc.txt`
+- 6 kesim noktası (kesimin iki yanında 10 ms): −43,7 ile −86 dB arası → kesik hece yok. Baş −59,2 dB, son −62,0 dB.
+- Whisper large-v3 ile yeniden transkripsiyon, beklenen metinle **TAM** eşleşme. Ardışık tekrar yok, düşük güvenli kelime yok.
+- "Mardin neyle meşhur? Tabii ki bu…" / "Mardin'in neyi meşhur? Tabii ki bu…" bilinçli paralel şaka (soru-cevap esprisi). Araçta izinli ifade olarak tanımlandı; başka tekrar yok.
+- İlk çalıştırmada "Şimdi" düşük güvenliydi (p=0,23). Başına 0,5 sn sessizlik eklenince p=0,86 → kelime sağlam; düşük güven, sesin dosyanın tam başında başlamasından kaynaklanıyordu. Ayrıntı: `araclar/cutcheck_sonuc.txt`
 
 ## 3. Saniye saniye
-| Çıkış (sn) | Görüntü | Başın üstü / üst alan | Göğüs hizası (altyazı) | Müzik | Ses efekti |
+| Çıkış (sn) | Görüntü (kaynak) | Grafik | Altyazı (göğüs hizası) | Müzik | Efekt (ses/görüntü) |
 |---|---|---|---|---|---|
-| 0,00–4,00 | A: aydınlatılmış minare, yavaş yaklaşma (1,00→1,10) | 0,35 **MARDİN** + "GECE YÜRÜYÜŞÜ" (minare gövdesinde, kubbe açık) | – | Ney açılışı (Hicaz), dem, kudüm vuruşu | 0,00 derin vuruş + nefes yükselişi · 0,45 başlık pop |
-| 1,90–3,90 | | Sol altta bilgi kartı: **ULU CAMİİ MİNARESİ · Kaidesindeki kitabe: 1176** | – | | 1,90 kart pop |
-| 4,00–6,50 | B: merdivenler, geri çekilme (1,09→1,00) | Boş (manzara temiz) | – | Darbuka (maksum) + ud riffi girer | 3,70 whoosh |
-| 6,50–8,50 | F: ışıklı konak cephesi, yavaş yaklaşma | Boş | – | Ritim sürer, sonda ud tremolo | 6,23 whoosh · 8,25 yumuşak whoosh |
-| 8,50–13,71 | C: selfie, yürüyüş | 9,08 📍 **MEYDANIN ÜST SOKAĞI** | EVET, ŞİMDİ · MEYDANIN ÜST · SOKAĞINDAN · YÜRÜMEYE DEVAM · EDİYORUZ. · NEREYE GİDİYORUZ? | Müzik −9 dB'ye iner, konuşma sırasında ek −7 dB ducking | 9,08 pop |
-| 13,71–16,95 | C: (jump cut) | 14,06 ➜ **ÇARŞININ ORTASINA** | BİRAZCIK ÇARŞININ · ORTASINA DOĞRU · GİDECEĞİZ. | alçak | 14,06 pop |
-| 16,95–19,35 | D: arkadaşın konuşuyor → kamera savrulur | ➜ ÇARŞININ ORTASINA (17,0'da kapanır) | YOLU · GÖSTERİRSEN (yüzün sol altta olduğu için altyazı sağda) · DAHA GÜZEL BİR | alçak | 17,85 savrulma whoosh |
-| 19,35–24,35 | D: savrulma bitip **sokak açılır** | 19,45 📍 **ÇARŞIYA DOĞRU** | GÖRÜNTÜ OLUR · ASLINDA. · ŞÖYLE GÖSTEREYİM · SİZLERE. | alçak | 19,40 parıltı |
-| 24,35–27,35 | E: dar sarı sokak, yavaş yaklaşma | Boş | – | **Müzik geri gelir**: ud ezgisi + ney + darbuka | 24,05 whoosh |
-| 27,35–30,55 | F: fenerli sokak, geri çekilme | 27,95 **MARDİN · GECE YÜRÜYÜŞÜ**, 28,85 🔖 "Kaydet, gezerken lazım olur" | – | 29,8 final vuruşu + ud akoru, ney uzun nota | 27,10 whoosh · 27,95 kapanış parıltısı |
-| 30,10–30,55 | Siyaha karartma | | | Söner | |
+| 0,0–1,5 | **KANCA:** MARDİN TÜRKİYE tabelası (3062), tabelaya yaklaşma | "GECE YÜRÜYÜŞÜ" | – | Büyük vuruş: darbuka düm, bas, ud akoru, ney düşüşü; darbuka rulosu | Beyaz flaş · derin vuruş |
+| 1,5–6,25 | 2949: kameraya yürüyüşün | – | ŞİMDİ MARDİN · NEYLE MEŞHUR? · TABİİ Kİ BU · GÜZEL SOKAKLARIYLA. | Hafif ritim, bas, ud (ducking) | – |
+| 6,25–12,25 | **SOKAKLAR montajı** (vuruşa kesim): fenerli sokak (F), Eski Şeyler sokağı (3082), sarı dar sokak (E), konak cephesi (F), minare (A) | 10,87 📍 ULU CAMİİ | – | **Ana tema:** bağlama benzeri tel + ney + darbuka (maksum) + el çırpma + zil + yaylı dolgu | Her kesimde zoom-punch ve whip (hareket bulanıklığı) geçişi + whoosh |
+| 12,25–13,9 | 2954: koşarak gelişin | – | E BİR DE · MARDİN'İN NEYİ MEŞHUR? | Ritim alçak | – |
+| 13,9–16,65 | **Merdivenler** (2907), ses 2954'ten devam | – | TABİİ Kİ BU · MERDİVENLERİ. | Ritim alçak | Zoom-punch |
+| 16,65–18,0 | 2954: nefes nefese sen | – | AY · ÇOK YORUCU. | **Müzik bant gibi yavaşlayıp durur** (şaka), sessizlik | Bant durması sesi · yüzüne komik zoom |
+| 18,0–21,0 | **Kediler:** beyaz-gri kedi ve sen (2954b), siyah kedi (3086), tekir (3078) | SOKAKLARIN GERÇEK SAHİPLERİ | – | Oyuncaklı pizzicato (kanun benzeri) + parmak şıklatma | Işık sızması · kodla üretilmiş "miyav" · zoom-punch |
+| 21,0–23,5 | **Gizli kapı** gibi açılan kitaplık (2960) | GİZLİ KAPI?! (sallanarak) | – | Kafe teması başlar: kanun arpejleri, bendir | Işık sızması · sihirli parıltı |
+| 23,5–29,5 | Kitap kafe: kitap duvarı (2957), çevirmeli telefon (2975), kemerli raflar (2986), çiçek (2974), kitap seçen sen (3038), okuyan sen (2980) | 📚 KİTAP KAFE | – | Sakin kafe teması, ney | Vuruşa zoom-punch |
+| 29,5–32,06 | Çay karıştıran arkadaşın (2973) | – | KARIŞTIR, · GÜLÜMSE. | Alçak | – |
+| 32,06–33,0 | Menüyle gülümsemen (2968) | – | – | | Zoom-punch |
+| 33,0–34,5 | Kafe aynasında selfie (3060) | – | – | **Gerilim yükselir:** darbuka rulosu, kreşendo, ney tırmanışı | Whip · deklanşör sesi |
+| 34,5–36,0 | **Aynalı Sokak** tabelası ve sen (3082) | 📍 AYNALI SOKAK | – | Yükseliş sürer | Whip |
+| 36,0–38,3 | 2945: arkadaşın konuşuyor → kamera savrulur | – | YOLU · GÖSTERİRSEN · DAHA GÜZEL BİR | Kalp atışı gibi düm + yaylı gerilim + rulo | Yükselen gerilim + savrulma whoosh |
+| 38,3–42,9 | **Sokak açılır** (2945) | 📍 ÇARŞIYA DOĞRU | GÖRÜNTÜ OLUR · ASLINDA. · ŞÖYLE GÖSTEREYİM · SİZLERE. | **Ana tema patlar** (konuşma altında alçak) | Beyaz flaş + açılış vuruşu + zoom |
+| 42,9–44,5 | Nazar boncuklu ağaç (3088) | – | – | Ana tema (tam) | Işık sızması · zoom-punch |
+| 44,5–46,0 | Aynada el sallaman (2987) | **GÖRÜŞÜRÜZ** | – | Ana tema | Whip · parıltı |
+| 46,0–47,5 | Minare (2906) | **MARDİN · GECE YÜRÜYÜŞÜ** + 🔖 "Kaydet, gezerken lazım olur" | – | **Final vuruşu** + bağlama akoru + ney uzun nota | Flaş · son 0,4 sn karartma |
 
-Altyazı: aktif kelime sarı, önceki kelimeler beyaz, siyah kontur, kelime kelime pop. Kart, ekran görüntüsü ya da bölünmüş ekran sadece gerektiği yerde kullanıldı: tek kart minarede. Bölünmüş ekran bu içerikte gerekmedi (konuşma zaten iki kişilik tek kadraj).
+Her karede: hafif S-eğrisi kontrast, vinyet, çok hafif film greni. Konuşmasız planlarda yavaş yaklaşma ya da uzaklaşma var.
 
-## 4. Yerleşim güvenliği (`araclar/render.py` her karede kontrol eder)
-- Yüz tespiti: YuNet, eğik kamera için −80…+80° döndürerek kare kare tarandı. Baş kutusu örtü/saç payıyla genişletildi, ±3 kare birleştirildi.
-- D başında kadrajın sol altına kısmen giren yüzün için elle ek güvenlik alanı tanımlandı (dedektör kenarda kaçırıyor).
-- Altyazı her parça için başlarla çakışmayan en yakın konuma otomatik yerleşiyor, gerekirse küçülüyor.
+## 4. Yerleşim güvenliği (her karede otomatik kontrol)
+- Yüz tespiti (YuNet): 22 çekim, eğik kamera için −80…+80° döndürülerek tarandı. Baş kutusu örtü/saç payıyla genişletildi ve ±3 kare birleştirildi. Tek karelik dev yanlış tespitler ayıklandı.
+- Altyazı ve notlar, gösterildikleri sürenin tamamında hiçbir başa çarpmayan en yakın konuma yerleşiyor, gerekirse küçülüyor.
+  - Uzaktan yürüdüğün 2949'da yüzün çok küçük; göğüs hizası yüze çok yakın düştüğü için altyazı başının biraz üstünde.
+  - "ÇOK YORUCU." da aynı nedenle başının üstünde.
+- Duvardaki portre tabloları da yüz sayıldı; üstlerine yazı gelmiyor.
 - Instagram arayüzü: üst 230 px, alt 420 px (y>1500) ve sağ buton şeridi (x>940) boş.
-- Önizleme karelerinde yüz çakışması **0**, arayüz ihlali **0**. Tam çıkışta 916 karenin hepsi kontrol edilip rapor edilecek.
+- 18 örnek karede yüz çakışması **0**, arayüz ihlali **0**. Tam çıkışta 1425 karenin hepsi kontrol edilip rapor edilecek.
+- Bölünmüş ekran ve kart bu kurguda gerekmedi. Not balonları kullanıldı; her yeri doldurmamak için manzara planlarının çoğu yazısız.
 
 ## 5. Ses
-- **Müzik:** tamamen kodla sentezlenmiş özgün parça (`araclar/audio.py`). Hicaz makamı (Re karar, 2. derece hafif tiz, 3. derece hafif pes), 120 BPM maksum ritmi. Enstrümanlar: darbuka düm/tek/ka, Karplus-Strong ile ud benzeri çift tel, ney benzeri üflemeli (vibrato + nefes), dem. Telifli kayıt ya da örnek yok.
-- **Efektler:** derin vuruş, whoosh, pop, parıltı; hepsi numpy ile üretildi.
-- **Konuşma:** 80 Hz high-pass, hafif kompresör. Konuşmada müzik −9 dB ve konuşmaya bağlı ek −7 dB ducking.
+- **Müzik** (`araclar/audio.py`): tamamen kodla sentezlenmiş özgün beste. Hicaz makamı, Re karar (2. derece tiz, 3. derece pes koma yaklaşımı), 120 BPM, maksum ritmi.
+  - Enstrümanlar: bağlama, ud ve kanun benzeri teller (Karplus-Strong), ney benzeri üflemeli, darbuka (düm/tek/ka), bendir, zil, el çırpma, bas, yaylı dolgu.
+  - Bölümler: kanca vuruşu → sokaklar ana teması → bant durması şakası → kedi pizzicatosu → kitap kafe teması → gerilim yükselişi → sokak açılışında tema patlaması → final.
+- **Efektler** (hepsi kodla): derin vuruş, whoosh, pop, bant durması, kedi sesi, sihirli parıltı, deklanşör, yükselen gerilim.
+- **Konuşmada:** müzik −9 dB, ayrıca konuşmaya bağlı −7 dB ducking. Konuşmalar 80 Hz high-pass ve hafif kompresörden geçti.
 - **Ölçüm (ffmpeg ebur128):** Integrated **−14,0 LUFS**, True peak **−1,5 dBTP**.
 
 ## 6. Haklar / doğrulama
-- Dış görsel, logo, gerçek kişi görseli, meme ya da arşiv video: **yok**. Görüntüdeki herkes kendi çekiminden.
-- Font: Inter / Inter Display (SIL Open Font License 1.1). İkonlar (konum, ok, yer imi) kodla çizildi.
-- Ekrandaki tek rakam **1176**: Mardin Ulu Camii minaresinin kare kaidesindeki kitabenin verdiği yapım tarihi.
-  - Mardin İl Kültür ve Turizm Müdürlüğü: kitabe tarihi 1176; bugünkü minare 1888/89'da yeniden yapılmış. Bu yüzden kartta "minare 1176'da yapıldı" değil, "kaidesindeki kitabe: 1176" yazıyor.
-  - Dergipark makalesi aynı kitabeyi 572 H. (1176) olarak okuyor.
-- Minarenin Ulu Camii olduğu çekimin GPS'iyle (37,3135 K, 40,7345 D; Mardin eski şehir) ve minarenin biçimiyle uyumlu.
+- Dış görsel, logo, gerçek kişi görseli, meme ya da arşiv video: **yok**. Görüntüdeki her şey kendi çekimlerin.
+  - MARDİN tabelası, Aynalı Sokak ve Eski Şeyler tabelaları çekimin içinde kendiliğinden görünüyor.
+- Telifli müzik ya da ses: **yok**.
+- Font: Inter / Inter Display (SIL Open Font License 1.1). İkonlar (konum, kitap, yer imi) kodla çizildi.
+- **Ekranda rakam yok.** Önceki plandaki "1176" kartı, minare artık 1,5 sn'lik montaj planı olduğu için kaldırıldı.
+- "ULU CAMİİ" etiketi: çekim GPS'i (37,3135 K, 40,7345 D; Mardin eski şehir) ve minarenin biçimi Mardin Ulu Camii minaresiyle uyumlu.
+- "AYNALI SOKAK" etiketi sadece tabelanın göründüğü IMG_3082'de. Kafe aynası (3060) GPS'e göre ~500 m uzakta olduğu için etiketlenmedi.

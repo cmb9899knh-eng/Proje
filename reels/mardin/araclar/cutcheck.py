@@ -4,7 +4,8 @@
 import sys, wave, re, numpy as np
 from faster_whisper import WhisperModel
 path=sys.argv[1]; cuts=[float(x) for x in sys.argv[2].split(",") if x]; expected=sys.argv[3]
-allow=set(sys.argv[4].split(",")) if len(sys.argv)>4 else set()
+allow=set(sys.argv[4].split(",")) if len(sys.argv)>4 and sys.argv[4] else set()
+allow_ng=set(sys.argv[5].split(",")) if len(sys.argv)>5 else set()  # bilincli paralel ifadeler (or. "tabii ki bu")
 w=wave.open(path); sr=w.getframerate(); a=np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(np.float32)/32768
 def db(s): return 20*np.log10(np.sqrt((s**2).mean())+1e-9)
 ok=True; win=int(.010*sr)
@@ -17,9 +18,17 @@ for n,s in (("bas",a[:win]),("son",a[-win:])):
     l=db(s); bad=l>-40; ok&=not bad; print(f"  {n}: {l:6.1f} dB -> {'SORUN' if bad else 'temiz'}")
 print("== 2) Yeniden transkripsiyon (large-v3)")
 m=WhisperModel("large-v3",device="cpu",compute_type="int8")
-a16=np.interp(np.arange(0,len(a),sr/16000),np.arange(len(a)),a).astype(np.float32)
+LEAD=0.5  # transkripsiyonda basa 0.5 sn sessizlik (videoda konusmadan once baska ses var; Whisper'a baglam)
+ap=np.concatenate([np.zeros(int(LEAD*sr),np.float32),a])
+a16=np.interp(np.arange(0,len(ap),sr/16000),np.arange(len(ap)),ap).astype(np.float32)
 segs,_=m.transcribe(a16,language="tr",word_timestamps=True,condition_on_previous_text=False,beam_size=5)
-words=[(x.start,x.end,x.word.strip(),x.probability) for s in segs for x in s.words]
+words=[]
+for s_ in segs:
+    for x in s_.words:
+        wd=x.word.strip()
+        if words and wd[:1] in "'’":   # ek (Mardin'in) onceki kelimeye bitisik
+            p0=words[-1]; words[-1]=(p0[0],x.end-LEAD,p0[2]+wd,min(p0[3],x.probability))
+        else: words.append((x.start-LEAD,x.end-LEAD,wd,x.probability))
 for x in words: print(f"  {x[0]:5.2f}-{x[1]:5.2f} {x[2]:14s} p={x[3]:.2f}")
 norm=lambda t:[re.sub(r"[^\wçğıöşü]","",x.replace("İ","i").replace("I","ı").lower()) for x in t]
 got=[x for x in norm([w[2] for w in words]) if x]; exp=[x for x in norm(expected.split()) if x]
@@ -27,7 +36,8 @@ print("  beklenen:"," ".join(exp)); print("  bulunan :"," ".join(got))
 rep=[got[i] for i in range(1,len(got)) if got[i]==got[i-1] and got[i] not in allow]
 print("  ardisik tekrar:",rep or "yok"); ok&=not rep
 # ayni cumlenin iki kez gecmesi (3+ kelimelik n-gram tekrari)
-ng=[" ".join(got[i:i+3]) for i in range(len(got)-2)]; dup=sorted({g for g in ng if ng.count(g)>1})
+ng=[" ".join(got[i:i+3]) for i in range(len(got)-2)]; dup=sorted({g for g in ng if ng.count(g)>1 and g not in allow_ng})
+if allow_ng: print("  izinli paralel ifade:",sorted(allow_ng))
 print("  tekrar eden ifade (3 kelime):",dup or "yok"); ok&=not dup
 print("  dusuk guvenli kelime (<0.5):",[w[2] for w in words if w[3]<0.5] or "yok")
 match=got==exp; ok&=match; print("  metin eslesmesi:","TAM" if match else "FARKLI")
