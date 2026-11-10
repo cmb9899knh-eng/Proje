@@ -84,7 +84,7 @@ Sessiz kliplerdeki "Altyazı M.K." ve "İzlediğiniz için teşekkür ederim" Wh
 | 74.87–76.17 | 3289 0.50–1.80 | Puşiler | kesme | — | — | ortam -14 dB |
 | 76.17–78.17 | 3291 0.30–2.30 | Minare | çapraz geçiş, Ken Burns ×1.06 | — | — | ortam -14 dB |
 | 78.17–80.93 | 3293_01d3 0.17–2.93 | Kimi yakaladık yolda? | **whip-pan** + ışık sızması | — | KİMİ YAKALADIK YOLDA? | konuşma (**gürültüsü temizlenmiş**) · whoosh |
-| 80.93–84.33 | 3293_01d3 4.30–7.70 | Ümit Abi tezgâhında | kesme | **ÜMİT ABİ** isim kartı: “oyuncaklarla köy çocuklarını mutlu ediyor” (81.2–84.2) | — | ortam -18 dB · parıltı |
+| 80.93–84.33 | 3293_01d3 4.30–7.70 | Ümit Abi tezgâhında | kesme | **ÜMİT KAVAK** isim kartı: “@fetteho” (81.2–84.2) | — | ortam -18 dB · parıltı |
 | 84.33–86.53 | 3293_d30e 0.87–3.07 | Ümit abiyi çok seviyorum. | kesme | — | ÜMİT ABİYİ ÇOK SEVİYORUM | konuşma (**gürültüsü temizlenmiş**) |
 | 86.53–89.13 | 3293_d30e 3.13–5.73 | Yeri açılınca lütfen gelin. | kesme + %7 punch-in | — | YERİ AÇILINCA LÜTFEN GELİN | konuşma (**gürültüsü temizlenmiş**) |
 | 89.13–93.70 | 3295 0.10–4.67 | Şu an sanırım çarşıda geziyoruz. Evet, meydandayız arkadaşlar. | **whip-pan** + ışık sızması | — | ŞU AN SANIRIM ÇARŞIDA GEZİYORUZ EVET MEYDANDAYIZ ARKADAŞLAR | konuşma · whoosh |
@@ -136,6 +136,6 @@ Sessiz kliplerdeki "Altyazı M.K." ve "İzlediğiniz için teşekkür ederim" Wh
    (c) İkisi birden: müzikli ve müziksiz iki dosya
 3. **Bölünmüş ekrandaki dükkân telefon numarası** (sağ üst tabela): bulanıklaştırayım mı?
 4. **Minare:** etiket koymadım. "Ulu Camii" yazmamı istersen teyit et
-7. **Ümit Abi kartı:** "@fetteho" kullanıcı adını internette doğrulayamadım. Benzer kişi: Güneydoğu'da oyuncak dağıtan Ümit Kavak (Hürriyet Daily News), ama aynı kişi olduğu teyit edilemedi. Kartta şimdilik "ÜMİT ABİ · oyuncaklarla köy çocuklarını mutlu ediyor" yazıyor. Kullanıcı adının doğru yazımını (ve istersen soyadını) teyit edersen ekleyeyim
+7. **Ümit Abi kartı:** ✅ Teyit edildi. Kartta **ÜMİT KAVAK · @fetteho** yazıyor (kullanıcı adını ve kişiyi sen teyit ettin; kaynak: Hürriyet Daily News, “A tale of toys”)
 5. Videoda Gülbahar, diğer arkadaşın, Ümit Abi ve badem şekeri satıcısı yüzleriyle görünüyor. Paylaşım izinlerini senin teyit etmen gerekiyor
 6. Süre 2:22. Daha kısa (~60–90 sn) bir sürüm istersen hangi bölümlerin kalacağını söyle ya da ben öneri getireyim
