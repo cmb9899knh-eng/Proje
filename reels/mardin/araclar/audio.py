@@ -370,7 +370,7 @@ if __name__ == "__main__":
     mix = (mus * 0.55 + voice[:, None] + fx[:, None] * 0.9) * fade[:, None]
     meter = pyln.Meter(SR)
     for _ in range(3):
-        L = meter.integrated_loudness(mix); mix = mix * 10 ** ((-14 - L) / 20); mix = limiter(mix, -1.5)
+        L = meter.integrated_loudness(mix); mix = mix * 10 ** ((-14 - L) / 20); mix = limiter(mix, -2.3)   # AAC kodlamasi tepeyi ~0.6 dB yukseltir
     wr(f"{WORK}/mix.wav", mix)
     print(f"mix: {meter.integrated_loudness(mix):.2f} LUFS")
     json.dump(sorted(SFX_LIST), open(f"{WORK}/sfx_list.json", "w"), ensure_ascii=False)
