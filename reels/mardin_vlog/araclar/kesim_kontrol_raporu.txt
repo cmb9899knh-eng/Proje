@@ -1,0 +1,176 @@
+== 1) Konusma segmenti kenarlari (kaynakta, segment icindeki 40 ms)
+  3308_699e 4.720-7.653  bas  -58.8 dB | son  -55.8 dB -> temiz   (Mardin bir efsane.)
+  3151_6953 0.733-4.167  bas  -54.3 dB | son  -62.9 dB -> temiz   (Bugün Antik Kent'teyiz. Vol 2 diyelim.)
+  3151_6953 4.567-7.067  bas  -63.1 dB | son  -58.1 dB -> temiz   (Dün Mardin sokaklarını gece gördük,)
+  3151_6953 7.500-9.100  bas  -57.7 dB | son  -53.4 dB -> temiz   (gezdik.)
+  3152_f5e4 2.967-7.600  bas  -55.7 dB | son  -60.7 dB -> temiz   (Şimdi bir sürü kafe var derken zincir kafelerin çoğu açıldı burada.)
+  3150_ddcd 2.533-5.800  bas  -64.7 dB | son  -61.2 dB -> temiz   (Aynı zamanda yemek yeme yerleri de var,)
+  3150_ddcd 6.467-7.967  bas  -59.2 dB | son  -49.2 dB -> temiz   (fotoğraf çekme yerleri de var.)
+  3152_f22a 0.600-5.767  bas  -60.1 dB | son  -60.0 dB -> temiz   (Şimdi Gülbahar bunları bir görsün. Hangisinde oturmak istiyorsa orada oturalım.)
+  3160 1.000-4.500  bas  -49.8 dB | son  -56.7 dB -> temiz   (Evet şimdi Nevada Cafe'nin girişindeyiz.)
+  3160 6.033-7.800  bas  -64.2 dB | son  -54.7 dB -> temiz   (Bakalım nasıl bir yer çıkacak.)
+  3163_edd4 0.767-3.633  bas  -63.1 dB | son  -60.1 dB -> temiz   (Evet, şimdi de Espresso Lab'deyiz.)
+  3163_edd4 4.000-6.533  bas  -57.1 dB | son  -66.0 dB -> temiz   (Gülbahar'a kafeleri gösteriyorum.)
+  3286_7f55 0.433-2.067  bas  -46.2 dB | son  -48.3 dB -> temiz   (Şimdi biz)
+  3286_7f55 3.033-5.767  bas  -54.9 dB | son  -60.2 dB -> temiz   (çıktık kafeden. Kahvelerimiz elimizde.)
+  3286_2b7d 0.400-2.933  bas  -70.4 dB | son  -49.8 dB -> temiz   (Aynalar bizi karşılıyor.)
+  3286_ddcc 5.000-7.133  bas  -61.4 dB | son  -55.0 dB -> temiz   (Evet, şu anda meydana doğru)
+  3286_ddcc 7.400-8.600  bas  -64.2 dB | son  -62.5 dB -> temiz   (ilerliyoruz.)
+  3295 0.100-4.667  bas  -49.4 dB | son  -55.3 dB -> temiz   (Şu an sanırım çarşıda geziyoruz. Evet, meydandayız arkadaşlar.)
+  3295 5.367-6.833  bas  -51.4 dB | son  -54.0 dB -> temiz   (Çok güzel yerler var.)
+  3297 1.100-3.900  bas  -55.0 dB | son  -56.8 dB -> temiz   (Mardin'in meşhur badem şekerleri.)
+  3297 4.733-7.300  bas  -55.5 dB | son  -56.0 dB -> temiz   (Nereden geçerseniz ikram ediliyor.)
+  3299_9f0d 2.167-4.500  bas  -55.9 dB | son  -55.3 dB -> temiz   (Bu yolda yürüyün,)
+  3299_9f0d 4.800-8.433  bas  -59.3 dB | son  -59.3 dB -> temiz   (aç olun, doyuyorsunuz yol bitmeden.)
+  3302_177a 0.067-4.700  bas  -50.3 dB | son  -58.6 dB -> temiz   (Aynı zamanda Mardin'de Süryani şarabı meşhur.)
+  3308_6bd7 0.200-4.033  bas  -49.2 dB | son  -56.6 dB -> temiz   (İşte size bahsettiğim yerler, buralar.)
+  3308_6bd7 4.500-6.933  bas  -59.2 dB | son  -45.4 dB -> temiz   (Mezopotamya, Dicle.)
+  3309_8598 0.333-6.467  bas  -60.0 dB | son  -64.8 dB -> temiz   (Şimdi Gülbahar'ı Mardin'de en çok fotoğraf çekmek için ziyaret edilen yere getirdim.)
+  3308_699e 0.467-2.033  bas  -59.5 dB | son  -54.1 dB -> temiz   (Çok güzel.)
+== 2) Yeniden transkripsiyon (birlesik konusma izi)
+    0.00-  1.20 Mardin           p=0.90
+    1.20-  1.40 bir              p=0.85
+    1.40-  2.14 efsane.          p=1.00
+    3.08-  3.46 Bugün            p=0.99
+    3.46-  4.22 antik            p=0.76
+    4.22-  5.00 kentteyiz.       p=0.99
+    5.00-  5.40 Vol              p=0.59
+    5.40-  5.74 2                p=0.90
+    5.74-  6.36 diyelim.         p=1.00
+    6.82-  7.20 Dün              p=1.00
+    7.20-  7.56 Mardin           p=1.00
+    7.56-  8.34 sokaklarını      p=1.00
+    8.34-  8.92 gece             p=0.99
+    8.92- 10.22 gördük,          p=1.00
+   10.22- 10.88 gezdik.          p=1.00
+   11.50- 11.88 Şimdi            p=1.00
+   11.88- 12.20 bir              p=0.99
+   12.20- 12.52 sürü             p=1.00
+   12.52- 12.88 kafe             p=0.99
+   12.88- 13.04 var              p=1.00
+   13.04- 13.56 derken           p=1.00
+   13.56- 14.08 zincir           p=0.89
+   14.08- 14.64 kafelerin        p=0.94
+   14.64- 14.92 çoğu             p=1.00
+   14.92- 15.38 açıldı           p=1.00
+   15.38- 15.68 burada.          p=1.00
+   16.52- 16.90 Aynı             p=1.00
+   16.90- 17.32 zamanda          p=1.00
+   17.32- 17.68 yemek            p=1.00
+   17.68- 18.02 yeme             p=1.00
+   18.02- 18.68 yerleri          p=1.00
+   18.68- 18.84 de               p=1.00
+   18.84- 19.08 var.             p=1.00
+   19.48- 20.24 Fotoğraf         p=0.99
+   20.24- 20.54 çekme            p=1.00
+   20.54- 20.90 yerleri          p=1.00
+   20.90- 21.06 de               p=1.00
+   21.06- 21.24 var.             p=1.00
+   21.36- 22.08 Şimdi            p=1.00
+   22.08- 22.66 Gülbahar         p=1.00
+   22.66- 22.88 bunları          p=1.00
+   22.88- 23.18 bir              p=1.00
+   23.18- 23.86 görsün.          p=1.00
+   23.90- 24.54 Hangisinde       p=0.99
+   24.54- 24.92 oturmak          p=1.00
+   24.92- 25.30 istiyorsa        p=1.00
+   25.30- 25.60 orada            p=0.99
+   25.60- 26.34 oturalım.        p=1.00
+   26.34- 27.32 Evet,            p=0.99
+   27.36- 27.62 şimdi            p=1.00
+   27.62- 27.98 Nevada           p=0.79
+   27.98- 28.42 Cafe             p=0.27
+   28.42- 28.72 'nin             p=1.00
+   28.72- 30.30 girişindeyiz.    p=0.99
+   30.40- 31.22 Bakalım          p=0.78
+   31.22- 31.48 nasıl            p=1.00
+   31.48- 31.68 bir              p=1.00
+   31.68- 31.82 yer              p=1.00
+   31.82- 32.28 çıkacak.         p=1.00
+   32.91- 33.32 Evet,            p=1.00
+   33.36- 33.68 şimdi            p=1.00
+   33.68- 34.00 de               p=1.00
+   34.00- 34.62 Espresso         p=0.89
+   34.62- 35.38 Lab'deyiz.       p=0.99
+   35.64- 36.46 Gülbahar         p=0.95
+   36.46- 36.66 'a               p=1.00
+   36.66- 37.12 kafeleri         p=1.00
+   37.12- 37.88 gösteriyorum.    p=1.00
+   38.36- 39.18 Şimdi            p=1.00
+   39.18- 39.92 biz              p=1.00
+   39.92- 40.92 çıktık           p=1.00
+   40.92- 41.34 kafeden.         p=0.99
+   41.50- 42.24 Kahvelerimiz     p=1.00
+   42.24- 42.96 elimizde.        p=1.00
+   43.97- 44.38 Aynalar          p=1.00
+   44.38- 44.66 bizi             p=1.00
+   44.66- 45.70 karşılıyor.      p=1.00
+   46.23- 46.64 Evet,            p=1.00
+   46.72- 46.92 şu               p=1.00
+   46.92- 47.16 anda             p=1.00
+   47.16- 47.84 meydana          p=1.00
+   47.84- 48.14 doğru            p=1.00
+   48.14- 49.76 ilerliyoruz.     p=1.00
+   50.11- 50.52 Şu               p=1.00
+   50.52- 50.70 an               p=1.00
+   50.70- 51.14 sanırım          p=1.00
+   51.14- 51.72 çarşıda          p=0.99
+   51.72- 52.32 geziyoruz.       p=1.00
+   52.44- 52.84 Evet,            p=1.00
+   52.94- 53.76 meydandayız      p=1.00
+   53.76- 54.08 arkadaşlar.      p=1.00
+   54.66- 55.08 Çok              p=1.00
+   55.08- 55.34 güzel            p=1.00
+   55.34- 55.82 yerler           p=1.00
+   55.82- 56.06 var.             p=1.00
+   56.34- 57.28 Mardin           p=0.98
+   57.28- 57.42 'in              p=0.99
+   57.42- 57.82 meşhur           p=1.00
+   57.82- 58.32 badem            p=1.00
+   58.32- 58.96 şekerleri.       p=1.00
+   59.66- 60.14 Nereden          p=0.99
+   60.14- 60.78 geçerseniz       p=1.00
+   60.78- 61.16 ikram            p=1.00
+   61.16- 61.56 ediliyor.        p=1.00
+   62.68- 63.64 Bu               p=1.00
+   63.64- 64.08 yolda            p=1.00
+   64.08- 64.64 yürüyün,         p=1.00
+   64.66- 65.46 aç               p=1.00
+   65.46- 65.78 olun,            p=1.00
+   65.94- 67.34 doyuyorsunuz.    p=1.00
+   67.36- 67.76 Yol              p=1.00
+   67.76- 68.14 bitmeden.        p=1.00
+   69.40- 70.36 Aynı             p=0.99
+   70.36- 70.82 zamanda          p=1.00
+   70.82- 71.72 Mardin'de        p=1.00
+   71.72- 72.46 süryani          p=0.84
+   72.46- 72.96 şarabı           p=1.00
+   72.96- 73.36 meşhur.          p=1.00
+   73.86- 74.34 İşte             p=0.99
+   74.34- 74.58 size             p=1.00
+   74.58- 75.34 bahsettiğim      p=1.00
+   75.34- 75.86 yerler           p=1.00
+   75.86- 77.58 buralar.         p=0.94
+   78.04- 79.00 Mezopotamya,     p=0.95
+   79.10- 79.62 Dicle.           p=0.98
+   80.58- 81.30 Şimdi            p=0.50
+   81.30- 82.00 Gülbahar         p=0.89
+   82.00- 82.24 'ı               p=1.00
+   82.24- 83.10 Mardin'de        p=0.98
+   83.10- 83.38 en               p=0.97
+   83.38- 83.68 çok              p=1.00
+   83.68- 84.22 fotoğraf         p=1.00
+   84.22- 84.58 çekmek           p=1.00
+   84.58- 84.78 için             p=1.00
+   84.78- 85.22 ziyaret          p=0.99
+   85.22- 85.60 edilen           p=1.00
+   85.60- 85.84 yere             p=0.99
+   85.84- 86.58 getirdim.        p=1.00
+   86.62- 87.34 Çok              p=0.98
+   87.34- 87.62 güzel.           p=0.99
+  beklenen: mardin bir efsane bugün antik kentteyiz vol iki diyelim dün mardin sokaklarını gece gördük gezdik şimdi bir sürü kafe var derken zincir kafelerin çoğu açıldı burada aynı zamanda yemek yeme yerleri de var fotoğraf çekme yerleri de var şimdi gülbahar bunları bir görsün hangisinde oturmak istiyorsa orada oturalım evet şimdi nevada kafenin girişindeyiz bakalım nasıl bir yer çıkacak evet şimdi de espresso labdeyiz gülbahara kafeleri gösteriyorum şimdi biz çıktık kafeden kahvelerimiz elimizde aynalar bizi karşılıyor evet şu anda meydana doğru ilerliyoruz şu an sanırım çarşıda geziyoruz evet meydandayız arkadaşlar çok güzel yerler var mardinin meşhur badem şekerleri nereden geçerseniz ikram ediliyor bu yolda yürüyün aç olun doyuyorsunuz yol bitmeden aynı zamanda mardinde süryani şarabı meşhur işte size bahsettiğim yerler buralar mezopotamya dicle şimdi gülbaharı mardinde en çok fotoğraf çekmek için ziyaret edilen yere getirdim çok güzel
+  bulunan : mardin bir efsane bugün antik kentteyiz vol iki diyelim dün mardin sokaklarını gece gördük gezdik şimdi bir sürü kafe var derken zincir kafelerin çoğu açıldı burada aynı zamanda yemek yeme yerleri de var fotoğraf çekme yerleri de var şimdi gülbahar bunları bir görsün hangisinde oturmak istiyorsa orada oturalım evet şimdi nevada kafenin girişindeyiz bakalım nasıl bir yer çıkacak evet şimdi de espresso labdeyiz gülbahara kafeleri gösteriyorum şimdi biz çıktık kafeden kahvelerimiz elimizde aynalar bizi karşılıyor evet şu anda meydana doğru ilerliyoruz şu an sanırım çarşıda geziyoruz evet meydandayız arkadaşlar çok güzel yerler var mardinin meşhur badem şekerleri nereden geçerseniz ikram ediliyor bu yolda yürüyün aç olun doyuyorsunuz yol bitmeden aynı zamanda mardinde süryani şarabı meşhur işte size bahsettiğim yerler buralar mezopotamya dicle şimdi gülbaharı mardinde en çok fotoğraf çekmek için ziyaret edilen yere getirdim çok güzel
+  ardisik tekrar: yok
+  farklar (ozel isim disinda olmamali): yok
+  dusuk guvenli kelime (<0.50): [('Cafe', np.float64(0.27)), ('Şimdi', np.float64(0.5))]
+SONUC: GECTI

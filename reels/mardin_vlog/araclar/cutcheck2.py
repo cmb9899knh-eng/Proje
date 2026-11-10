@@ -6,21 +6,27 @@ Kullanim: python3 cutcheck2.py <a48_dir> <out_wav>
 """
 import sys, wave, re, numpy as np
 sys.path.insert(0,".")
-from edl import timeline
+from edl import timeline, clip_audio, aud_src
 A=sys.argv[1]; OUT=sys.argv[2]; SR=48000
-EXPECTED=("evet şimdi * kafenin girişindeyiz bakalım nasıl bir yer çıkacak şu an sanırım çarşıda geziyoruz "
-          "evet meydandayız arkadaşlar çok güzel yerler var şu anda meydanın ilerisindeyiz "
-          "mardinin meşhur badem şekerleri nereden geçerseniz ikram ediliyor").split()
+EXPECTED=("mardin bir efsane bugün antik kentteyiz vol iki diyelim dün mardin sokaklarını gece gördük gezdik "
+ "şimdi bir sürü kafe var derken zincir kafelerin çoğu açıldı burada "
+ "aynı zamanda yemek yeme yerleri de var fotoğraf çekme yerleri de var şimdi gülbahar bunları bir görsün hangisinde oturmak istiyorsa orada oturalım "
+ "evet şimdi nevada kafenin girişindeyiz bakalım nasıl bir yer çıkacak "
+ "evet şimdi de espresso labdeyiz gülbahara kafeleri gösteriyorum şimdi biz çıktık kafeden kahvelerimiz elimizde aynalar bizi karşılıyor "
+ "evet şu anda meydana doğru ilerliyoruz şu an sanırım çarşıda geziyoruz evet meydandayız arkadaşlar çok güzel yerler var "
+ "mardinin meşhur badem şekerleri nereden geçerseniz ikram ediliyor bu yolda yürüyün aç olun doyuyorsunuz yol bitmeden "
+ "aynı zamanda mardinde süryani şarabı meşhur işte size bahsettiğim yerler buralar mezopotamya dicle "
+ "şimdi gülbaharı mardinde en çok fotoğraf çekmek için ziyaret edilen yere getirdim çok güzel").split()
 def load(n):
-    w=wave.open(f"{A}/{n}.wav"); return np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(np.float32)/32768
+    w=wave.open(clip_audio(n)); return np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(np.float32)/32768
 db=lambda s:20*np.log10(np.sqrt((s**2).mean())+1e-9)
 ok=True; parts=[]; joins=[]; t=0
 print("== 1) Konusma segmenti kenarlari (kaynakta, segment icindeki 40 ms)")
 for x in timeline():
     if x["kind"]!="konusma": continue
-    a=load(x["clip"]); i0=round(x["s"]*SR); i1=round(x["e"]*SR); w=int(.04*SR)
+    ac,as_=aud_src(x); a=load(ac); i0=round(as_*SR); i1=i0+round((x["e"]-x["s"])*SR); w=int(.04*SR)
     l=db(a[i0:i0+w]); r=db(a[i1-w:i1]); bad=l>-45 or r>-45; ok&=not bad
-    print(f"  {x['clip']} {x['s']:.3f}-{x['e']:.3f}  bas {l:6.1f} dB | son {r:6.1f} dB -> {'SORUN' if bad else 'temiz'}   ({x['note']})")
+    print(f"  {ac} {as_:.3f}-{as_+x['e']-x['s']:.3f}  bas {l:6.1f} dB | son {r:6.1f} dB -> {'SORUN' if bad else 'temiz'}   ({x['note']})")
     seg=a[i0:i1].copy(); f=int(.01*SR); seg[:f]*=np.linspace(0,1,f); seg[-f:]*=np.linspace(1,0,f)
     parts.append(seg); parts.append(np.zeros(int(.25*SR),np.float32))
 v=np.concatenate(parts); wo=wave.open(OUT,"wb"); wo.setnchannels(1); wo.setsampwidth(2); wo.setframerate(SR)
@@ -39,7 +45,8 @@ toks=[]
 for w_ in words:  # kesme isaretiyle baslayan ekleri onceki kelimeye bagla (Mardin + 'in -> mardinin)
     if w_[2].startswith(("'","’")) and toks: toks[-1]+=w_[2]
     else: toks.append(w_[2])
-got=[norm(t).replace("cafe","kafe") for t in toks if norm(t)]
+VAR={"cafenin":"kafenin","2":"iki","kenteyiz":"kentteyiz","labdeyiz":"labdeyiz","mevazanın":"nevadanın"}
+got=[VAR.get(norm(t),norm(t)) for t in toks if norm(t)]
 print("  beklenen:"," ".join(EXPECTED)); print("  bulunan :"," ".join(got))
 rep=[got[i] for i in range(1,len(got)) if got[i]==got[i-1]]
 # ifade tekrari (2-4 kelimelik ardisik blok)
@@ -54,8 +61,7 @@ g2=[g for g in got]
 sm=difflib.SequenceMatcher(a=exp,b=g2)
 diff=[(op,exp[i1:i2],g2[j1:j2]) for op,i1,i2,j1,j2 in sm.get_opcodes() if op!="equal"]
 print("  farklar (ozel isim disinda olmamali):", diff or "yok")
-K=exp.index("kafenin")  # '*' = kafe adi: yalnizca kafenin hemen onune 1-2 kelimelik ekleme kabul edilir
-nameonly=all(op=="insert" and i1==K and 1<=j2-j1<=2 for op,i1,i2,j1,j2 in sm.get_opcodes() if op!="equal")
+nameonly=False  # v2: joker yok, metin bire bir eslesmeli
 ok&=(not diff) or nameonly
 low=[(w_[2],round(w_[3],2)) for w_ in words if w_[3]<0.5]; print("  dusuk guvenli kelime (<0.50):", low or "yok")
 print("SONUC:", "GECTI" if ok else "KALDI")

@@ -1,122 +1,100 @@
-"""Ses miksi: diyalog + ortam + kodla uretilmis SFX ve fon muzigi (telifsiz, tamamen numpy sentezi).
-Cikti: work/mix_pre.wav (48 kHz stereo, normalize edilmemis), work/sfx_only.wav, work/music_only.wav
-"""
+"""Ses miksi v2: diyalog + ortam + kodla uretilmis SFX + (istege bagli) kodla bestelenmis muzik.
+Kullanim: python3 audio.py [--no-music]   -> work/mix_pre.wav (48 kHz stereo, normalize edilmemis)
+Telifli ses yok: tum efektler ve muzik numpy ile sentezlenir."""
 import wave, sys, numpy as np
-from edl import timeline
+from scipy.signal import lfilter
+from scipy.ndimage import uniform_filter1d
+from edl import timeline, clip_audio, aud_src
 SR = 48000
 TL = timeline(); DUR = TL[-1]["t1"]; NS = int(round(DUR * SR))
 MUSIC = "--no-music" not in sys.argv
 rng = np.random.default_rng(7)
-
-def load(n):
-    w = wave.open(f"a48/{n}.wav"); return np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
+def load(c):
+    w = wave.open(clip_audio(c)); return np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
 def db(x): return 10 ** (x / 20)
+def hp(x, fc):
+    a = np.exp(-2 * np.pi * fc / SR)
+    for _ in range(2): x = lfilter([a, -a], [1, -a], x).astype(np.float32)
+    return x
 
 # ---------------------------------------------------------------- diyalog + ortam
-dlg = np.zeros(NS, np.float32); amb = np.zeros(NS, np.float32); speech_mask = np.zeros(NS, np.float32)
+dlg = np.zeros(NS, np.float32); amb = np.zeros(NS, np.float32); speech = np.zeros(NS, np.float32)
 for x in TL:
-    a = load(x["clip"]); i0 = round(x["s"] * SR); i1 = round(x["e"] * SR); o = round(x["t0"] * SR)
-    seg = a[i0:i1].copy(); n = min(len(seg), NS - o); seg = seg[:n]
-    f = int((0.012 if x["kind"] == "konusma" else 0.04) * SR)
-    seg[:f] *= np.linspace(0, 1, f); seg[-f:] *= np.linspace(1, 0, f)
+    o = round(x["t0"] * SR); n = round((x["t1"] - x["t0"]) * SR); n = min(n, NS - o)
+    if x["kind"] == "foto": continue
     if x["kind"] == "konusma":
-        dlg[o:o + n] += seg; speech_mask[o:o + n] = 1
-    elif x["kind"].startswith("split"):
-        b = load(x["kind"].split(":")[1])[i0:i1][:n].copy(); b[:f] *= np.linspace(0, 1, f); b[-f:] *= np.linspace(1, 0, f)
-        amb[o:o + n] += 0.5 * (seg + b) * db(-12)
-    else:
-        amb[o:o + n] += seg * db(-12)
-# 80 Hz high-pass (1. derece, iki kez)
-def hp(x, fc=80):
-    a = np.exp(-2 * np.pi * fc / SR); y = np.zeros_like(x); px = py = 0.0
-    for _ in range(2):
-        y = np.empty_like(x); px = py = 0.0
-        # vektorlestirilmis tek kutuplu HP: y[n] = a*(y[n-1] + x[n] - x[n-1])
-        from scipy.signal import lfilter
-        y = lfilter([a, -a], [1, -a], x).astype(np.float32); x = y
-    return y
-dlg = hp(dlg); amb = hp(amb, 100)
+        c, s0 = aud_src(x); a = load(c)[round(s0 * SR):round(s0 * SR) + n].copy()
+        f = int(0.012 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f)
+        dlg[o:o + len(a)] += a; speech[o:o + len(a)] = 1
+    elif x.get("amb") is not None:
+        a = load(x["clip"])[round(x["s"] * SR):round(x["s"] * SR) + n].copy()
+        if x["kind"].startswith("split"):
+            b = load(x["kind"].split(":")[1])[round(x["s"] * SR):round(x["s"] * SR) + n]; m = min(len(a), len(b)); a = 0.5 * (a[:m] + b[:m])
+        f = int(0.06 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f)
+        amb[o:o + len(a)] += a * db(x["amb"])
+dlg = hp(dlg, 80); amb = hp(amb, 120)
 
 # ---------------------------------------------------------------- SFX sentezi
 def env_ad(n, a, d):
-    e = np.ones(n, np.float32); na = int(a * SR); e[:na] = np.linspace(0, 1, na)
+    e = np.ones(n, np.float32); na = max(1, int(a * SR)); e[:na] = np.linspace(0, 1, na)
     e[na:] = np.exp(-np.arange(n - na) / (d * SR)); return e
-def pop(dur=0.12):
-    n = int(dur * SR); t = np.arange(n) / SR
-    f = 900 * np.exp(-t * 18) + 350
+def pop():
+    n = int(0.12 * SR); t = np.arange(n) / SR; f = 900 * np.exp(-t * 18) + 350
     return (np.sin(2 * np.pi * np.cumsum(f) / SR) * env_ad(n, 0.002, 0.03)).astype(np.float32)
 def whoosh(dur=0.45, up=True):
-    n = int(dur * SR); noise = rng.standard_normal(n).astype(np.float32)
-    from scipy.signal import lfilter
-    out = np.zeros(n, np.float32); hop = 480
-    for k in range(0, n, hop):       # zamanla kayan bant-gecirgen (kaba ama etkili)
-        p = k / n; fc = (400 + 3200 * p) if up else (3600 - 3200 * p)
-        r = 0.97; th = 2 * np.pi * fc / SR
-        b, a = [1 - r], [1, -2 * r * np.cos(th), r * r]
-        out[k:k + hop] = lfilter(b, a, noise[max(0, k - 2000):k + hop])[-len(out[k:k + hop]):]
-    e = np.sin(np.pi * np.linspace(0, 1, n)) ** 2
-    out = out * e; return (out / (np.abs(out).max() + 1e-9)).astype(np.float32)
+    n = int(dur * SR); noise = rng.standard_normal(n).astype(np.float32); out = np.zeros(n, np.float32); hop = 480
+    for k in range(0, n, hop):
+        p = k / n; fc = (400 + 3200 * p) if up else (3600 - 3200 * p); r = 0.97; th = 2 * np.pi * fc / SR
+        seg = lfilter([1 - r], [1, -2 * r * np.cos(th), r * r], noise[max(0, k - 2000):k + hop]); out[k:k + hop] = seg[-len(out[k:k + hop]):]
+    out *= np.sin(np.pi * np.linspace(0, 1, n)) ** 2; return (out / (np.abs(out).max() + 1e-9)).astype(np.float32)
 def shimmer(dur=0.9):
     n = int(dur * SR); t = np.arange(n) / SR; y = np.zeros(n, np.float32)
-    for k, f in enumerate([1318.5, 1568, 1975.5, 2637]):   # E6 G6 B6 E7 arpej
-        st = int(k * 0.07 * SR); m = n - st
-        y[st:] += np.sin(2 * np.pi * f * t[:m]) * env_ad(m, 0.004, 0.25) * 0.5
+    for k, f in enumerate([1318.5, 1568, 1975.5, 2637]):
+        st = int(k * 0.07 * SR); m = n - st; y[st:] += np.sin(2 * np.pi * f * t[:m]) * env_ad(m, 0.004, 0.25) * 0.5
     return y / np.abs(y).max()
 def tick():
-    n = int(0.04 * SR); t = np.arange(n) / SR
-    return (np.sin(2 * np.pi * 2400 * t) * env_ad(n, 0.001, 0.006)).astype(np.float32)
+    n = int(0.04 * SR); t = np.arange(n) / SR; return (np.sin(2 * np.pi * 2400 * t) * env_ad(n, 0.001, 0.006)).astype(np.float32)
+def shutter():
+    """Fotograf makinesi deklansoru: iki mekanik tik + kisa gurultu."""
+    n = int(0.16 * SR); y = np.zeros(n, np.float32)
+    for st, g in ((0, 1.0), (0.075, 0.7)):
+        o = int(st * SR); m = int(0.03 * SR); b = rng.standard_normal(m) * env_ad(m, 0.0005, 0.006)
+        y[o:o + m] += lfilter([1, -0.6], [1], b).astype(np.float32) * g
+    return y / np.abs(y).max()
 
 sfx = np.zeros(NS, np.float32)
 def put(sig, t, g):
-    o = int(t * SR); n = min(len(sig), NS - o); sfx[o:o + n] += sig[:n] * db(g)
-put(shimmer(), 0.12, -20)
-for t in (2.62, 17.05, 29.95, 33.10): put(pop(), t, -19)       # rozet girisleri
-split = next(x for x in TL if x["kind"].startswith("split"))
-put(whoosh(0.4, True), split["t0"] - 0.2, -22); put(whoosh(0.4, False), split["t1"] - 0.2, -24)
-put(tick(), split["t0"] + 0.27, -22); put(tick(), split["t0"] + 0.33, -22)
-put(whoosh(0.5, True), 2.50 - 0.25, -25)                        # acilistan kafeye gecis
+    o = int(t * SR)
+    if o < 0 or o >= NS: return
+    n = min(len(sig), NS - o); sfx[o:o + n] += sig[:n] * db(g)
+import render                                  # rozet zamanlari (yerlesimde kaydirilmis olabilir)
+render.plan()
+for kind, t0, t1, c in render.EVENTS:
+    put(shimmer() if kind == "title" else pop(), t0 - 0.02, -20 if kind == "title" else -19)
+for x in TL:
+    tr = x.get("tr")
+    if tr == "whip": put(whoosh(0.42, True), x["t0"] - 0.24, -20)
+    if tr == "flash": put(tick(), x["t0"], -20)
+    if x["kind"].startswith("split"):
+        put(whoosh(0.4, True), x["t0"] - 0.2, -23); put(tick(), x["t0"] + 0.27, -22); put(tick(), x["t0"] + 0.33, -22)
+    if x["kind"] == "foto":
+        cards, _ = render.photo_cards(); step = (x["t1"] - x["t0"]) / len(cards)
+        for k in range(len(cards)): put(shutter(), x["t0"] + k * step, -16)
 
-# ---------------------------------------------------------------- fon muzigi (sentez, 92 BPM, yumusak lo-fi)
+# ---------------------------------------------------------------- muzik (kodla bestelenmis, music.py)
 mus = np.zeros(NS, np.float32)
 if MUSIC:
-    bpm = 92; beat = 60 / bpm; bar = 4 * beat
-    chords = [[57, 60, 64, 67], [53, 57, 60, 64], [48, 52, 55, 59], [55, 59, 62, 65]]   # Am7 Fmaj7 Cmaj7 G7
-    mf = lambda m: 440 * 2 ** ((m - 69) / 12)
-    t_all = np.arange(NS) / SR
-    for bi in range(int(DUR / bar) + 2):
-        ch = chords[bi % 4]; t0 = bi * bar
-        for m in ch:   # elektrik piyano benzeri: sinus + hafif 2. harmonik, yavas sonum
-            o = int(t0 * SR); n = min(int(bar * SR), NS - o)
-            if n <= 0: continue
-            t = np.arange(n) / SR; f = mf(m)
-            v = (np.sin(2 * np.pi * f * t) + 0.25 * np.sin(4 * np.pi * f * t + 0.3)) * env_ad(n, 0.01, 1.2) * 0.12
-            mus[o:o + n] += v.astype(np.float32)
-        # bas
-        o = int(t0 * SR); n = min(int(bar * SR), NS - o)
-        if n > 0:
-            t = np.arange(n) / SR; mus[o:o + n] += (np.sin(2 * np.pi * mf(ch[0] - 12) * t) * env_ad(n, 0.01, 0.9) * 0.18).astype(np.float32)
-        for k in range(4):   # yumusak kick (1,3) + hat (her vurus arasi)
-            tb = t0 + k * beat; o = int(tb * SR)
-            if k in (0, 2) and o < NS:
-                n = min(int(0.25 * SR), NS - o); t = np.arange(n) / SR
-                mus[o:o + n] += (np.sin(2 * np.pi * np.cumsum(60 + 90 * np.exp(-t * 30)) / SR) * env_ad(n, 0.002, 0.08) * 0.35).astype(np.float32)
-            oh = int((tb + beat / 2) * SR)
-            if oh < NS:
-                n = min(int(0.05 * SR), NS - oh)
-                hh = rng.standard_normal(n).astype(np.float32); hh = np.diff(np.concatenate([[0], hh])) * env_ad(n, 0.001, 0.012) * 0.05
-                mus[oh:oh + n] += hh
-    fade = int(1.2 * SR); mus[-fade:] *= np.linspace(1, 0, fade); mus[:int(0.3 * SR)] *= np.linspace(0, 1, int(0.3 * SR))
-    # konusma altinda duck (yumusak, 150 ms)
-    from scipy.ndimage import uniform_filter1d
-    duck = 1 - 0.7 * np.clip(uniform_filter1d(speech_mask, int(0.3 * SR)), 0, 1)
-    mus *= duck * db(-14)
+    w = wave.open("work/music_only.wav"); m = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
+    m = m[:NS]; mus[:len(m)] = m
+    duck = 1 - 0.72 * np.clip(uniform_filter1d(speech, int(0.35 * SR)), 0, 1)     # konusma altinda ~ -11 dB
+    mus *= duck * db(-13)
 
 mix = dlg + amb + sfx + mus
 st = np.stack([mix, mix], 1)
 def wr(p, x):
-    x = np.atleast_2d(x.T).T if x.ndim == 1 else x
-    w = wave.open(p, "wb"); w.setnchannels(x.shape[1] if x.ndim > 1 else 1); w.setsampwidth(2); w.setframerate(SR)
+    x = x if x.ndim > 1 else x[:, None]
+    w = wave.open(p, "wb"); w.setnchannels(x.shape[1]); w.setsampwidth(2); w.setframerate(SR)
     w.writeframes((np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
-wr("work/mix_pre.wav", st / max(1.0, np.abs(st).max() / 0.98))
-wr("work/sfx_only.wav", sfx); wr("work/music_only.wav", mus)
-print("sure", DUR, "tepe", np.abs(mix).max())
+out = "work/mix_pre.wav" if MUSIC else "work/mix_pre_nomusic.wav"
+wr(out, st / max(1.0, np.abs(st).max() / 0.98))
+print(out, "sure", round(DUR, 2), "tepe", round(float(np.abs(mix).max()), 3))
