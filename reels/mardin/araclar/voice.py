@@ -14,9 +14,15 @@ def save(p, x):
     w.writeframes((np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
 tl, T = timeline(); full = np.zeros(int(T * SR) + SR); speech = []; cuts = []; acc = 0; smap = []
 fade = int(0.008 * SR); ramp = np.linspace(0, 1, fade); r5 = int(0.005 * SR)
+# ayni kaynaktan kesintisiz devam eden parcalar (goruntu kesilir, ses akar) tek parca olarak islenir
+groups = []
 for (t0, t1, e) in tl:
     if "a" not in e: continue
-    k, a, b = e["a"], e["ai"], e["ao"]
+    if groups and groups[-1]["k"] == e["a"] and abs(groups[-1]["b"] - e["ai"]) < 1e-6 and abs(groups[-1]["t1"] - t0) < 1e-3:
+        groups[-1]["b"] = e["ao"]; groups[-1]["t1"] = t1
+    else: groups.append(dict(k=e["a"], a=e["ai"], b=e["ao"], t0=t0, t1=t1))
+for G in groups:
+    k, a, b, t0 = G["k"], G["a"], G["b"], G["t0"]
     seg = load(k)[int(round(a * SR)):int(round(b * SR))].copy(); g = np.ones(len(seg))
     for (m0, m1) in MUTE.get(k, []):
         i0, i1 = int((m0 - a) * SR), int((m1 - a) * SR)
@@ -24,7 +30,7 @@ for (t0, t1, e) in tl:
         env = np.full(i1 - i0 + 2 * r5, 10 ** (-30 / 20)); env[:r5] = np.linspace(1, env[r5], r5); env[-r5:] = np.linspace(env[r5], 1, r5)
         j0 = i0 - r5; lo = max(0, j0); hi = min(len(seg), j0 + len(env)); g[lo:hi] = np.minimum(g[lo:hi], env[lo - j0:hi - j0])
     seg *= g
-    # parca seviyesi esitleme: konusma olan kisimlarin RMS'i -24 dBFS (uzaktan gelen sesler de esit duyulsun)
+    # parca seviyesi esitleme: konusma olan kisimlarin RMS'i -24 dBFS
     blk = int(0.02 * SR); r = np.sqrt(np.array([np.mean(seg[i:i + blk] ** 2) for i in range(0, len(seg) - blk, blk)]) + 1e-12)
     act = r[r > r.max() * 10 ** (-20 / 20)]; lvl = 20 * np.log10(np.sqrt(np.mean(act ** 2)))
     seg *= 10 ** ((-24 - lvl) / 20); print(f"  {k} {a:.2f}-{b:.2f}: {lvl:.1f} dB -> -24 dB")

@@ -35,12 +35,15 @@ for line in open(os.path.join(HERE, "cutcheck_sonuc.txt")):
         # kelime baslangici bir parca sinirindan onceye tasarsa parcanin basina al
         seg = [x for x in SMAP if x[0] - 1e-3 <= s1 - 0.01 < x[1]][0]; s0 = max(s0, seg[0])
         words.append([s2o(s0) + 0.02, s2o(s1 - 1e-3), m[3]])
-def up(s): return s.replace("i", "İ").replace("ı", "I").upper()
+FIX = {"JEAN": "JİN", "RESTORANLA": "RESTORAN'LA"}   # Whisper yazimi -> soylenen/tabeladaki yazim (tabela: "Coffee JIN", "leyli")
+def up(s):
+    u = s.replace("i", "İ").replace("ı", "I").upper(); core = u.rstrip(".,?!"); return FIX.get(core, core) + u[len(core):]
 FONT_SUB = ImageFont.truetype(FB, 74)
-# anlam gruplari (kelime sayilari): SIMDI MARDIN / NEYLE MESHUR? / TABII KI BU / GUZEL SOKAKLARIYLA. / E BIR DE /
-# MARDIN'IN NEYI MESHUR? / TABII KI BU / MERDIVENLERI. / AY / COK YORUCU. / KARISTIR, / GULUMSE. / YOLU / GOSTERIRSEN /
-# DAHA GUZEL BIR / GORUNTU OLUR / ASLINDA. / SOYLE GOSTEREYIM / SIZLERE.
-GROUPS = [2, 2, 3, 2, 3, 3, 3, 1, 1, 2, 1, 1, 1, 1, 3, 2, 1, 2, 1]
+# anlam gruplari (kelime sayilari): MERHABA ARKADASLAR. / SIZLERE MARDIN / SOKAKLARINI TANITACAGIM. / SIMDI MARDIN /
+# NEYLE MESHUR? / TABII KI BU / GUZEL SOKAKLARIYLA. / E BIR DE / MARDIN'IN NEYI MESHUR? / TABII KI BU / MERDIVENLERI. / AY /
+# COK YORUCU. / SOLA DOGRU DONERSENIZ / EGER BIRAZ / YURUDUKTEN SONRA / CAFE JIN / VE LEYLI RESTORAN'LA / KARSILASACAKSINIZ. /
+# KARISTIR, / GULUMSE. / YOLU / GOSTERIRSEN / DAHA GUZEL BIR / GORUNTU OLUR / ASLINDA. / SOYLE GOSTEREYIM / SIZLERE. / BU KADAR.
+GROUPS = [2, 2, 2, 2, 2, 3, 2, 3, 3, 3, 1, 1, 2, 3, 2, 2, 2, 3, 1, 1, 1, 1, 1, 3, 2, 1, 2, 1, 2]
 def chunks():
     assert sum(GROUPS) == len(words), (sum(GROUPS), len(words), [w[2] for w in words])
     out, i = [], 0
@@ -48,7 +51,9 @@ def chunks():
     res = []
     for i, c in enumerate(out):
         end = out[i + 1][0][1] if i + 1 < len(out) else c[-1][2] + 0.6
-        res.append((c[0][1], min(end, c[-1][2] + 0.6), c))
+        seg_end = [r[1] for r in tl if "a" in r[2] and r[0] - 1e-3 <= c[-1][1] < r[1]]
+        seg_end = max([r[1] for r in tl if "a" in r[2] and r[0] - 1e-3 <= c[-1][2] - 0.01 < r[1]] + seg_end) if seg_end else 1e9
+        res.append((c[0][1], min(end, c[-1][2] + 0.6, seg_end), c))
     return res
 CHUNKS = chunks()
 
@@ -71,9 +76,11 @@ def heads(t):
     medw = float(np.median(near)) if near else 1e9
     for dn in (-3, -2, -1, 0, 1, 2, 3):
         n = min(max(0, n0 + dn), len(F) - 1)
+        best = max([b[4] for b in F[n]], default=0)
         for b in F[n]:
             x0, y0, x1, y1, s = b; w, h = x1 - x0, y1 - y0
-            if s < 0.7 or w < 40 or w > 420 or h / w > 1.9 or w > 2.0 * medw: continue   # tek karelik dev tespit = yanlis
+            if s < 0.7 or w < 40 or w > 420 or h / w > 1.9 or w > 2.0 * medw: continue
+            if best >= 0.85 and s < 0.85: continue   # karede net yuz varken dusuk skorlu ek tespit (ceket vb.) yanlis   # tek karelik dev tespit = yanlis
             out.append(transform_box((x0 - 0.30 * w, y0 - 0.60 * h, x1 + 0.30 * w, y1 + 0.28 * h), t))
     return out
 
@@ -203,7 +210,7 @@ for (t0, t1, e) in tl:
         PILLS.append([st, t1, pill(*p), p[0]])
     last = p
 TAG = shadow(text_img("GECE YÜRÜYÜŞÜ", ImageFont.truetype(FBO, 46), YEL, track=10), 10, 0.6, 4)
-OUT_ROWS = [r for r in tl if r[2]["sec"] == "outro"]; BYE0 = OUT_ROWS[-2][0] + 0.15; END0 = OUT_ROWS[-1][0]
+OUT_ROWS = [r for r in tl if r[2]["sec"] == "outro"]; BYE0 = OUT_ROWS[-2][0] + 0.55; END0 = OUT_ROWS[-1][0]
 ENDT1 = shadow(text_img("GÖRÜŞÜRÜZ", ImageFont.truetype(FB, 96), WHITE, track=6), 14, 0.55, 6)
 ENDT2 = shadow(text_img("MARDİN", ImageFont.truetype(FB, 150), YEL, track=8), 16, 0.55, 8)
 def make_cta():
@@ -257,15 +264,12 @@ def overlay(t):
             sc = 0.7 + 0.3 * ease_back((t - a + 0.03) / 0.14)
             paste(c, sub_word(w, act), x + full[j].width * ss / 2, cy, sc * ss, min(1, (e - t) / 0.12))
             x += (full[j].width + sp) * ss
-    if BYE0 <= t < END0 + 0.15:   # aynada el sallarken "GORUSURUZ"
-        b = ease_back((t - BYE0) / 0.3); al = 1 - ease_out((t - END0) / 0.15)
-        cx, cy, sc = free_spot("bye", BYE0, END0, ENDT1.width, ENDT1.height, TOP_CANDS, (1.0, 0.85, 0.7))
-        paste(c, ENDT1, cx, cy, sc * (0.6 + 0.4 * b), min(1, b) * al)
-    if t >= END0:   # minare: "MARDIN" + kaydet
-        b = ease_back((t - END0 - 0.05) / 0.35)
+    if t >= END0:   # minare: "GORUSURUZ" + "MARDIN" + kaydet
+        a1 = ease_back((t - END0 - 0.05) / 0.3); b = ease_back((t - END0 - 0.2) / 0.35)
+        paste(c, ENDT1, 505, 860, 0.6 + 0.4 * a1, min(1, max(0, a1)))
         paste(c, ENDT2, 505, 1000, 0.6 + 0.4 * b, min(1, max(0, b)))
-        paste(c, TAG, 505, 1120, 1.0, ease_out((t - END0 - 0.3) / 0.3))
-        paste(c, CTA, 505, 1330, 0.8 + 0.2 * ease_back((t - END0 - 0.5) / 0.3), ease_out((t - END0 - 0.5) / 0.25))
+        paste(c, TAG, 505, 1120, 1.0, ease_out((t - END0 - 0.45) / 0.3))
+        paste(c, CTA, 505, 1330, 0.8 + 0.2 * ease_back((t - END0 - 0.6) / 0.3), ease_out((t - END0 - 0.6) / 0.25))
     return c
 
 def check(t, c):

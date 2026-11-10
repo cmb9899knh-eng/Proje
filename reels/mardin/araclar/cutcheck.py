@@ -5,7 +5,12 @@ import sys, wave, re, numpy as np
 from faster_whisper import WhisperModel
 path=sys.argv[1]; cuts=[float(x) for x in sys.argv[2].split(",") if x]; expected=sys.argv[3]
 allow=set(sys.argv[4].split(",")) if len(sys.argv)>4 and sys.argv[4] else set()
-allow_ng=set(sys.argv[5].split(",")) if len(sys.argv)>5 else set()  # bilincli paralel ifadeler (or. "tabii ki bu")
+allow_ng=set(sys.argv[5].split(",")) if len(sys.argv)>5 and sys.argv[5] else set()
+# tabelayla dogrulanmis ozel isimler ve Whisper yazim varyantlari: "cafejin:cafe jean|cafe jin"
+proper=set(); alias={}
+for item in (sys.argv[6].lower().split(",") if len(sys.argv)>6 else []):
+    name,_,vs=item.partition(":"); proper.add(name)
+    for v in [x for x in vs.split("|") if x]: alias[v]=name; proper.update(v.split())  # bilincli paralel ifadeler (or. "tabii ki bu")
 w=wave.open(path); sr=w.getframerate(); a=np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(np.float32)/32768
 def db(s): return 20*np.log10(np.sqrt((s**2).mean())+1e-9)
 ok=True; win=int(.010*sr)
@@ -32,6 +37,9 @@ for s_ in segs:
 for x in words: print(f"  {x[0]:5.2f}-{x[1]:5.2f} {x[2]:14s} p={x[3]:.2f}")
 norm=lambda t:[re.sub(r"[^\wçğıöşü]","",x.replace("İ","i").replace("I","ı").lower()) for x in t]
 got=[x for x in norm([w[2] for w in words]) if x]; exp=[x for x in norm(expected.split()) if x]
+g=" "+" ".join(got)+" "
+for v,name in alias.items(): g=g.replace(" "+v+" "," "+name+" ")
+got=g.split()
 print("  beklenen:"," ".join(exp)); print("  bulunan :"," ".join(got))
 rep=[got[i] for i in range(1,len(got)) if got[i]==got[i-1] and got[i] not in allow]
 print("  ardisik tekrar:",rep or "yok"); ok&=not rep
@@ -39,6 +47,7 @@ print("  ardisik tekrar:",rep or "yok"); ok&=not rep
 ng=[" ".join(got[i:i+3]) for i in range(len(got)-2)]; dup=sorted({g for g in ng if ng.count(g)>1 and g not in allow_ng})
 if allow_ng: print("  izinli paralel ifade:",sorted(allow_ng))
 print("  tekrar eden ifade (3 kelime):",dup or "yok"); ok&=not dup
-print("  dusuk guvenli kelime (<0.5):",[w[2] for w in words if w[3]<0.5] or "yok")
+low=[w[2] for w in words if w[3]<0.5 and re.sub(r"[^\wçğıöşü]","",w[2].lower()) not in proper]
+print("  dusuk guvenli kelime (<0.5):",low or "yok", ("| ozel isim istisnasi: "+",".join(sorted(proper))) if proper else ""); ok&=not low
 match=got==exp; ok&=match; print("  metin eslesmesi:","TAM" if match else "FARKLI")
 print("SONUC:","GECTI" if ok else "KALDI")

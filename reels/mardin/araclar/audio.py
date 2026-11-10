@@ -13,7 +13,7 @@ rng = np.random.default_rng(11)
 
 def sec_span(name):
     rows = [r for r in tl if r[2]["sec"] == name]; return rows[0][0], rows[-1][1]
-HOOK = sec_span("hook"); TALK1 = sec_span("talk1"); STREETS = sec_span("streets"); TALK2 = sec_span("talk2")
+HOOK = sec_span("hook"); TALK1 = (sec_span("intro")[0], sec_span("talk1")[1]); PLACES = sec_span("places"); STREETS = sec_span("streets"); TALK2 = sec_span("talk2")
 CATS = sec_span("cats"); CAFE = sec_span("cafe"); MIRROR = sec_span("mirror"); REVEAL = sec_span("reveal"); OUTRO = sec_span("outro")
 _t2 = [r for r in tl if r[2]["sec"] == "talk2"]
 AY_T = _t2[2][0]                       # "Ay" basladigi an -> muzik bant gibi durur
@@ -189,6 +189,10 @@ def compose():
     maqsum(perc, TALK1[0], TALK1[1], 0.55, fills=False); bassline(low, TALK1[0], TALK1[1], 0.8)
     t = TALK1[0]
     while t < TALK1[1] - 0.1: mel.add(ud("D3", 1.6, 0.5), t, 0.15); mel.add(ud("A3", 1.2, 0.35), t + 1.0, 0.15); t += BAR
+    # MEKANLAR (Cafe Jin / Leyli): hafif ritim + ud (ducking ile alcak)
+    maqsum(perc, PLACES[0], PLACES[1], 0.55, fills=False); bassline(low, PLACES[0], PLACES[1], 0.8)
+    t = PLACES[0]
+    while t < PLACES[1] - 0.1: mel.add(ud("D3", 1.6, 0.5), t, 0.15); mel.add(ud("F#3", 1.2, 0.35), t + 1.0, 0.15); t += BAR
     roll(perc, STREETS[0] - 0.5, STREETS[0], 0.2, 0.9)
     # SOKAKLAR: ana tema (saz + ney) + tam ritim + alkis + zil + yay dolgusu
     perc.add(dum(1.2), STREETS[0]); perc.add(bendir(1.0), STREETS[0])
@@ -233,11 +237,12 @@ def compose():
     roll(perc, WHIP1 - 1.0, WHIP1, 0.1, 1.0)
     perc.add(dum(1.3), WHIP1); low.add(bass("D2", 1.0, 1.3), WHIP1); perc.add(bendir(1.0), WHIP1)
     g0 = grid(WHIP1) + (B if grid(WHIP1) < WHIP1 - 0.01 else 0)
-    LAST = [r for r in tl if r[2]['sec'] == 'outro'][-1][0]
+    LAST = [r for r in tl if r[2]['sec'] == 'outro'][-2][0]   # "Bu kadar." oncesi tema durur
     maqsum(perc, g0, LAST, 1.0, claps=True, zils=True); bassline(low, g0, LAST, 1.0)
     theme(mel, g0, LAST, saz, 1.0)
     mel.add(ney([(n, i * B / 2, (i + 1) * B / 2) for i, n in enumerate(MAIN + MAIN) if n], 0.5), g0, -0.25)
     padb.add(pad(["D3", "A3"], OUTRO[1] - g0, 1.0), g0)
+    perc.add(dum(0.9), LAST); mel.add(ney([("A4", 0, 0.7), ("G4", 0.7, 1.0), ("F#4", 1.0, 1.5)], 0.5), LAST + 0.05, -0.2)
     # FINAL vurusu + akor + ney uzun nota
     END = [r for r in tl if r[2]['sec'] == 'outro'][-1][0]   # son plan (minare) girisi
     perc.add(dum(1.3), END); perc.add(bendir(1.2), END); low.add(bass("D2", 1.2, 1.2), END)
@@ -324,7 +329,7 @@ def sfx():
     add(riser(WHIP1 - WHIP0 + 0.4), WHIP0 - 0.4, -18, "yukselen gerilim (savrulma oncesi)")
     add(whoosh(1.1, 6), WHIP0, -15, "savrulma whoosh")
     add(boom(1.2), WHIP1, -12, "acilis vurusu (sokak)")
-    add(chime(), [r for r in tl if r[2]["sec"] == "outro"][-2][0] + 0.2, -24, "GORUSURUZ parilti"); add(boom(1.4), [r for r in tl if r[2]["sec"] == "outro"][-1][0], -12, "final vurusu (minare)")
+    add(chime(), [r for r in tl if r[2]["sec"] == "outro"][-1][0] + 0.25, -24, "GORUSURUZ parilti"); add(boom(1.4), [r for r in tl if r[2]["sec"] == "outro"][-1][0], -12, "final vurusu (minare)")
     return out[:N]
 
 # grafik (render.py) ile ayni zamanlar

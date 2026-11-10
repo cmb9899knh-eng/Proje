@@ -1,54 +1,78 @@
 == 1) Kesim noktalari (kesimin hemen iki yaninda 10 ms; kesik hece yoksa < -40 dB)
-  4.750s  once  -70.5 dB | sonra  -69.7 dB  -> temiz
-  6.405s  once  -43.7 dB | sonra  -70.4 dB  -> temiz
-  9.155s  once  -70.9 dB | sonra  -77.0 dB  -> temiz
-  9.785s  once  -75.6 dB | sonra  -75.1 dB  -> temiz
-  10.505s  once  -53.8 dB | sonra  -78.7 dB  -> temiz
-  13.065s  once  -59.5 dB | sonra  -86.0 dB  -> temiz
+  4.400s  once  -58.3 dB | sonra  -60.2 dB  -> temiz
+  9.150s  once  -71.4 dB | sonra  -77.8 dB  -> temiz
+  10.805s  once  -51.5 dB | sonra  -76.8 dB  -> temiz
+  13.555s  once  -77.4 dB | sonra  -83.1 dB  -> temiz
+  14.185s  once  -81.6 dB | sonra  -78.8 dB  -> temiz
+  14.905s  once  -57.6 dB | sonra  -45.2 dB  -> temiz
+  21.125s  once  -71.0 dB | sonra  -73.6 dB  -> temiz
+  23.685s  once  -55.1 dB | sonra  -88.3 dB  -> temiz
+  30.580s  once  -63.6 dB | sonra  -71.7 dB  -> temiz
 == 1b) Bas/son kenar
-  bas:  -59.2 dB -> temiz
-  son:  -62.0 dB -> temiz
+  bas:  -69.2 dB -> temiz
+  son:  -44.2 dB -> temiz
 == 2) Yeniden transkripsiyon (large-v3)
-  -0.50- 0.18 Şimdi          p=0.81
-   0.18- 0.84 Mardin         p=0.83
-   0.84- 1.10 neyle          p=0.80
-   1.10- 1.70 meşhur?        p=1.00
-   1.72- 2.46 Tabii          p=0.83
-   2.46- 2.80 ki             p=1.00
-   2.80- 3.10 bu             p=0.99
-   3.10- 3.40 güzel          p=0.99
-   3.40- 4.50 sokaklarıyla.  p=1.00
-   4.66- 4.78 E              p=0.58
-   4.78- 4.92 bir            p=0.99
-   4.92- 5.08 de             p=1.00
-   5.08- 5.64 Mardin'in      p=1.00
-   5.64- 5.84 neyi           p=0.99
-   5.84- 6.30 meşhur?        p=1.00
-   6.30- 6.62 Tabii          p=1.00
-   6.62- 6.92 ki             p=1.00
-   6.92- 7.90 bu             p=0.99
-   7.90- 8.76 merdivenleri.  p=1.00
-   8.92- 9.30 Ay             p=0.85
-   9.30- 9.82 çok            p=0.90
-   9.82-10.38 yorucu.        p=1.00
-  10.44-11.16 Karıştır,      p=0.99
-  11.28-12.54 gülümse.       p=0.89
-  12.94-13.58 Yolu           p=0.73
-  13.58-14.30 gösterirsen    p=0.99
-  14.30-14.58 daha           p=1.00
-  14.58-14.96 güzel          p=1.00
-  14.96-15.64 bir            p=0.87
-  15.64-16.18 görüntü        p=1.00
-  16.18-16.38 olur           p=1.00
-  16.38-16.68 aslında.       p=1.00
-  17.12-17.68 Şöyle          p=0.97
-  17.68-18.46 göstereyim     p=1.00
-  18.46-18.92 sizlere.       p=1.00
-  beklenen: şimdi mardin neyle meşhur tabii ki bu güzel sokaklarıyla e bir de mardinin neyi meşhur tabii ki bu merdivenleri ay çok yorucu karıştır gülümse yolu gösterirsen daha güzel bir görüntü olur aslında şöyle göstereyim sizlere
-  bulunan : şimdi mardin neyle meşhur tabii ki bu güzel sokaklarıyla e bir de mardinin neyi meşhur tabii ki bu merdivenleri ay çok yorucu karıştır gülümse yolu gösterirsen daha güzel bir görüntü olur aslında şöyle göstereyim sizlere
+   0.02- 0.72 Merhaba        p=0.90
+   0.72- 1.18 arkadaşlar.    p=0.94
+   1.44- 2.10 Sizlere        p=0.98
+   2.10- 2.64 Mardin         p=0.96
+   2.64- 3.40 sokaklarını    p=0.99
+   3.40- 4.10 tanıtacağım.   p=0.99
+   4.34- 4.58 Şimdi          p=0.96
+   4.58- 5.22 Mardin         p=0.97
+   5.22- 5.50 neyle          p=0.86
+   5.50- 6.10 meşhur?        p=1.00
+   6.14- 6.86 Tabii          p=0.82
+   6.86- 7.20 ki             p=1.00
+   7.20- 7.50 bu             p=0.99
+   7.50- 7.80 güzel          p=0.99
+   7.80- 8.88 sokaklarıyla.  p=1.00
+   9.08- 9.18 E              p=0.71
+   9.18- 9.32 bir            p=0.99
+   9.32- 9.48 de             p=1.00
+   9.48-10.04 Mardin'in      p=1.00
+  10.04-10.24 neyi           p=1.00
+  10.24-10.70 meşhur?        p=0.99
+  10.70-11.02 Tabii          p=1.00
+  11.02-11.32 ki             p=1.00
+  11.32-12.30 bu             p=0.99
+  12.30-13.18 merdivenleri.  p=1.00
+  13.34-13.72 Ay             p=0.87
+  13.72-14.22 çok            p=0.93
+  14.22-14.76 yorucu.        p=1.00
+  14.86-15.04 Sola           p=0.97
+  15.04-15.24 doğru          p=1.00
+  15.24-16.10 dönerseniz     p=1.00
+  16.10-16.54 eğer           p=1.00
+  16.54-16.78 biraz          p=0.87
+  16.78-17.46 yürüdükten     p=1.00
+  17.46-17.80 sonra          p=1.00
+  17.80-18.36 Cafe           p=0.75
+  18.36-18.68 Jean           p=0.47
+  18.68-18.92 ve             p=0.99
+  18.92-19.22 Leyli          p=0.77
+  19.22-19.86 restoranla     p=0.87
+  19.86-20.94 karşılaşacaksınız. p=1.00
+  21.06-21.74 Karıştır,      p=1.00
+  22.16-23.16 gülümse.       p=0.99
+  23.54-24.18 Yolu           p=0.77
+  24.18-24.92 gösterirsen    p=1.00
+  24.92-25.20 daha           p=1.00
+  25.20-25.58 güzel          p=1.00
+  25.58-26.28 bir            p=0.92
+  26.28-26.80 görüntü        p=1.00
+  26.80-27.00 olur           p=1.00
+  27.00-27.40 aslında.       p=1.00
+  27.40-28.34 Şöyle          p=0.91
+  28.34-29.06 göstereyim     p=1.00
+  29.06-29.60 sizlere.       p=1.00
+  29.70-30.66 Bu             p=1.00
+  30.66-30.94 kadar.         p=1.00
+  beklenen: merhaba arkadaşlar sizlere mardin sokaklarını tanıtacağım şimdi mardin neyle meşhur tabii ki bu güzel sokaklarıyla e bir de mardinin neyi meşhur tabii ki bu merdivenleri ay çok yorucu sola doğru dönerseniz eğer biraz yürüdükten sonra cafejin ve leyli restoranla karşılaşacaksınız karıştır gülümse yolu gösterirsen daha güzel bir görüntü olur aslında şöyle göstereyim sizlere bu kadar
+  bulunan : merhaba arkadaşlar sizlere mardin sokaklarını tanıtacağım şimdi mardin neyle meşhur tabii ki bu güzel sokaklarıyla e bir de mardinin neyi meşhur tabii ki bu merdivenleri ay çok yorucu sola doğru dönerseniz eğer biraz yürüdükten sonra cafejin ve leyli restoranla karşılaşacaksınız karıştır gülümse yolu gösterirsen daha güzel bir görüntü olur aslında şöyle göstereyim sizlere bu kadar
   ardisik tekrar: yok
   izinli paralel ifade: ['meşhur tabii ki', 'tabii ki bu']
   tekrar eden ifade (3 kelime): yok
-  dusuk guvenli kelime (<0.5): yok
+  dusuk guvenli kelime (<0.5): yok | ozel isim istisnasi: cafe,cafejin,jean,jin
   metin eslesmesi: TAM
 SONUC: GECTI
