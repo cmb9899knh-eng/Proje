@@ -78,7 +78,7 @@ for x in TL:
     if x["kind"].startswith("split"):
         put(whoosh(0.4, True), x["t0"] - 0.2, -23); put(tick(), x["t0"] + 0.27, -22); put(tick(), x["t0"] + 0.33, -22)
     if x["kind"] == "foto":
-        cards, _ = render.photo_cards(); step = (x["t1"] - x["t0"]) / len(cards)
+        cards = render.photo_cards(x); step = (x["t1"] - x["t0"]) / len(cards)
         for k in range(len(cards)): put(shutter(), x["t0"] + k * step, -16)
 
 # ---------------------------------------------------------------- muzik (kodla bestelenmis, music.py)

@@ -90,13 +90,15 @@ def head_boxes(t):
 
 def raw_head_boxes(x, t):
     """Basi tamamen kapsayan kutular (yuz + basortusu/sac payi + cene), kaynak koordinatinda."""
-    if x["kind"].startswith("split") or x["kind"] == "foto": return []
-    L = FACES[x["clip"]]; i = max(0, min(len(L) - 1, src_frame(x, t)))
+    if x["kind"].startswith("split"): return []
+    if x["kind"] == "foto": fl = foto_faces(x, t)
+    else:
+        L = FACES[x["clip"]]; fl = L[max(0, min(len(L) - 1, src_frame(x, t)))]
     out = []
-    for fx, fy, fw, fh, sc in L[i]:
+    for fx, fy, fw, fh, sc in fl:
         if fh < 40 or sc < 0.7: continue                  # cok kucuk/uzak yuzler: yine de koruyalim mi? (asagida)
         out.append((fx - 0.35 * fw, fy - 0.55 * fh, fx + 1.35 * fw, fy + 1.25 * fh))
-    for fx, fy, fw, fh, sc in L[i]:                       # uzak yayalar: kucuk ama korunur
+    for fx, fy, fw, fh, sc in fl:                         # uzak yayalar: kucuk ama korunur
         if fh < 40 and sc >= 0.8: out.append((fx - 0.5 * fw, fy - 0.8 * fh, fx + 1.5 * fw, fy + 1.4 * fh))
     return out
 
@@ -281,7 +283,7 @@ def plan():
                 te = min(ts + 3.0, send - 0.1)
                 for sc in (1.0, 0.8):
                     w, h, pad = inner(badge(*c, scale=sc)); W2, H2 = int(w * OV), int(h * OV)
-                    pos = place(W2, H2, ts, te, "strictabove")
+                    pos = place(W2, H2, ts, te, "top" if seg_at(ts)["kind"] == "foto" else "strictabove")
                     if pos: res = ((pos[0] + (W2 - w) / 2, pos[1] + (H2 - h) / 2), (w, h), sc); EVENTS[k] = (kind, ts, te, c); break
             if res is None:   # basin ustunde yer yok: yuzun yanina (yuze binmeden), bolumun basinda
                 te = min(t0 + 3.0, send - 0.1)
@@ -347,39 +349,51 @@ def zoom_np(img, z):
     M = np.float32([[z, 0, -x0 * z], [0, z, -y0 * z]])
     return cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
 
-PHOTOS = sorted(__import__("glob").glob("fotolar/*.*"))   # kullanicinin fotograflari gelince buraya
-def photo_cards():
-    if PHOTOS: return [Image.open(p).convert("RGB") for p in PHOTOS[:4]], False
-    ph = []   # yer tutucu: cekimden kareler
-    for c, tt in (("3308_6bd7", 0.6), ("3309_8598", 3.0), ("3150_ddcd", 5.0)):
-        ph.append(Image.fromarray(read_np(c, round(tt * FPS))))
-    return ph, True
-_PH = None
+from PIL import ImageOps
+_PHC = {}
+def photo_cards(x):
+    """Segmentin fotograflari (EXIF yonu duzeltilmis)."""
+    k = id(x)
+    if k not in _PHC: _PHC[k] = [ImageOps.exif_transpose(Image.open(p)).convert("RGB") for p in x["files"]]
+    return _PHC[k]
 def photo_frame(x, t):
-    global _PH
-    if _PH is None: _PH = photo_cards()
-    cards, placeholder = _PH
+    cards = photo_cards(x); lt = t - x["t0"]; d = x["t1"] - x["t0"]
+    if x.get("style") == "full":                      # tam ekran, yavas yakinlasma
+        im = cards[0]; s0 = max(W / im.width, H / im.height); z = s0 * (1.0 + 0.07 * lt / d)
+        big = im.resize((int(im.width * z), int(im.height * z)), Image.LANCZOS)
+        ox, oy = (big.width - W) // 2, int((big.height - H) * 0.35)
+        return np.array(big.crop((ox, oy, ox + W, oy + H)))
     pv = nb(x, -1); bg = read_np(pv["clip"], round(pv["e"] * FPS) - 1)
     bg = cv2.GaussianBlur(bg, (0, 0), 28); bg = (bg * 0.75).astype(np.uint8)
-    fr = Image.fromarray(bg).convert("RGBA"); lt = t - x["t0"]; d = x["t1"] - x["t0"]; n = len(cards); step = d / n
-    rots = [-7, 5, -3, 6]; offs = [(-40, -60), (50, 10), (-20, 70), (30, -20)]
+    fr = Image.fromarray(bg).convert("RGBA"); n = len(cards); step = d / n
+    rots = [-6, 5, -3, 6]; offs = [(-30, -40), (40, 10), (-15, 50), (30, -20)]
     for k, c in enumerate(cards):
         st = k * step
         if lt < st: break
         p = ease_back((lt - st) / 0.35)
-        im = c.copy(); im.thumbnail((720, 940)); iw, ih = im.size
-        pad = 28; card = Image.new("RGBA", (iw + 2 * pad, ih + pad + 120), (250, 248, 242, 255))
+        im = c.copy(); im.thumbnail((700, 930)); iw, ih = im.size
+        pad = 26; card = Image.new("RGBA", (iw + 2 * pad, ih + pad + 110), (250, 248, 242, 255))
         kb = 1 + 0.05 * min(1, (lt - st) / d)
         big = im.resize((int(iw * kb), int(ih * kb)), Image.LANCZOS); ox, oy = (big.width - iw) // 2, (big.height - ih) // 2
         card.paste(big.crop((ox, oy, ox + iw, oy + ih)), (pad, pad))
-        if placeholder:
-            f = ImageFont.truetype(FXB, 34); ImageDraw.Draw(card).text((pad, ih + pad + 36), "ÖRNEK · senin fotoğrafın gelecek", font=f, fill=(120, 120, 120, 255))
         card = card.rotate(rots[k % 4] * (0.6 + 0.4 * min(1, p)), resample=Image.BICUBIC, expand=True)
         s_ = max(0.05, 0.55 + 0.45 * p); card = card.resize((max(1, int(card.width * s_)), max(1, int(card.height * s_))), Image.LANCZOS)
         sh, r = with_shadow(card, r=18, a=0.5, dy=10)
-        cx, cy = W / 2 + offs[k % 4][0], H * 0.47 + offs[k % 4][1]
+        cx, cy = W / 2 + offs[k % 4][0], H * 0.52 + offs[k % 4][1]
         fr.alpha_composite(sh, (int(cx - sh.width / 2), int(cy - sh.height / 2)))
     return np.array(fr.convert("RGB"))
+
+_FDET = None; _FOTOFACE = {}
+def foto_faces(x, t):
+    """Fotograf segmentlerinde yuzleri olusan karenin uzerinde algila (rozet/altyazi fotograftaki yuze binmesin)."""
+    global _FDET
+    key = (id(x), round(t * FPS))
+    if key not in _FOTOFACE:
+        if _FDET is None: _FDET = cv2.FaceDetectorYN.create("models/yunet.onnx", "", (540, 960), 0.6, 0.3, 50)
+        img = cv2.cvtColor(photo_frame(x, t), cv2.COLOR_RGB2BGR)
+        _, fa = _FDET.detect(cv2.resize(img, (540, 960)))
+        _FOTOFACE[key] = [[float(v * 2) for v in r[:4]] + [float(r[-1])] for r in fa] if fa is not None else []
+    return _FOTOFACE[key]
 
 def seg_np(x, t):
     if x["kind"] == "foto": return photo_frame(x, t)
