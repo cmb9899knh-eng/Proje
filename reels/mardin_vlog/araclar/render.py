@@ -371,11 +371,15 @@ def photo_cards(x):
     return _PHC[k]
 def photo_frame(x, t):
     cards = photo_cards(x); lt = t - x["t0"]; d = x["t1"] - x["t0"]
-    if x.get("style") == "full":                      # tam ekran, yavas yakinlasma
-        im = cards[0]; s0 = max(W / im.width, H / im.height); z = s0 * (1.0 + 0.07 * lt / d)
+    if x.get("style") in ("full", "dump"):            # tam ekran; dump: ritimli sirayla, yuze ortali kirpma, yavas yakinlasma
+        n = len(cards); step = d / n; k = min(n - 1, int(lt / step)); im = cards[k]; lk = lt - k * step
+        s0 = max(W / im.width, H / im.height); z = s0 * (1.0 + 0.06 * lk / step)
         big = im.resize((int(im.width * z), int(im.height * z)), Image.LANCZOS)
-        ox, oy = (big.width - W) // 2, int((big.height - H) * 0.35)
-        return np.array(big.crop((ox, oy, ox + W, oy + H)))
+        fx, fy = photo_face_center(x, k, im)
+        ox = int(np.clip(fx * z - W / 2, 0, big.width - W)); oy = int(np.clip(fy * z - H * 0.38, 0, big.height - H))
+        out = np.array(big.crop((ox, oy, ox + W, oy + H))).astype(np.float32)
+        if k > 0 and lk < 0.10: out = out * (1 - 0.7 * (1 - lk / 0.10)) + 255 * 0.7 * (1 - lk / 0.10)   # her fotografta flas
+        return out.astype(np.uint8)
     pv = nb(x, -1); bg = read_np(pv["clip"], round(pv["e"] * FPS) - 1)
     bg = cv2.GaussianBlur(bg, (0, 0), 28); bg = (bg * 0.75).astype(np.uint8)
     fr = Image.fromarray(bg).convert("RGBA"); n = len(cards); step = d / n
@@ -396,7 +400,22 @@ def photo_frame(x, t):
         fr.alpha_composite(sh, (int(cx - sh.width / 2), int(cy - sh.height / 2)))
     return np.array(fr.convert("RGB"))
 
-_FDET = None; _FOTOFACE = {}
+_FDET = None; _FOTOFACE = {}; _PFC = {}
+def photo_face_center(x, k, im):
+    """Fotograftaki en buyuk yuzun merkezi (kirpmayi yuze ortalamak icin); yuz yoksa resim merkezi."""
+    global _FDET
+    key = (id(x), k)
+    if key not in _PFC:
+        if _FDET is None: _FDET = cv2.FaceDetectorYN.create("models/yunet.onnx", "", (540, 960), 0.6, 0.3, 50)
+        sm = im.copy(); sm.thumbnail((960, 960)); sc = im.width / sm.width
+        _FDET.setInputSize(sm.size); _, fa = _FDET.detect(cv2.cvtColor(np.array(sm), cv2.COLOR_RGB2BGR)); _FDET.setInputSize((540, 960))
+        if fa is not None and len(fa):
+            if len(fa) > 1:   # birden fazla yuz (ayna selfie): hepsinin ortasi
+                cx = np.mean([f[0] + f[2] / 2 for f in fa]); cy = np.mean([f[1] + f[3] / 2 for f in fa])
+            else: f = fa[0]; cx, cy = f[0] + f[2] / 2, f[1] + f[3] / 2
+            _PFC[key] = (cx * sc, cy * sc)
+        else: _PFC[key] = (im.width / 2, im.height * 0.4)
+    return _PFC[key]
 def foto_faces(x, t):
     """Fotograf segmentlerinde yuzleri olusan karenin uzerinde algila (rozet/altyazi fotograftaki yuze binmesin)."""
     global _FDET
