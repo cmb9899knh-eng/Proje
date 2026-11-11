@@ -61,7 +61,7 @@ SEC = {s["id"]: (s["f0"] / promo.FPS, (s["f0"] + s["n"]) / promo.FPS) for s in p
 def energy(t):
     for sid, (a, b) in SEC.items():
         if a <= t < b:
-            return {"intro": 0, "hook": 1, "giris": 2, "mimari": 2, "oda": 2, "banyo": 1.5, "somine": 1, "teras": 3,
+            return {"intro": 0, "hook": 1, "giris": 2, "karsilama": 1, "mimari": 2, "oda": 2, "banyo": 1.5, "somine": 1, "teras": 3,
                     "kahvalti": 3, "davet": 2, "adres": 1, "kapanis": 1, "son": 0}[sid]
     return 0
 CH = [[50, 53, 57, 62], [55, 58, 62, 67], [46, 50, 53, 58], [45, 49, 52, 57]]   # Dm Gm Bb A (Re armonik minor / hicaz rengi)

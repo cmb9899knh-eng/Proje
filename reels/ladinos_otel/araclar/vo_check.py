@@ -11,6 +11,23 @@ N = int(promo.TOTAL / promo.FPS * SR); track = np.zeros(N, np.float32); place = 
 for s in promo.SECS:
     if not s["vo"]: continue
     x = segs[s["vo"]]; i = int(s["vo_t"] * SR); track[i:i + len(x)] += x[:N - i]; place.append((s["vo"], s["vo_t"], s["vo_t"] + len(x) / SR, (s["f0"] + s["n"]) / promo.FPS))
+# gercek diyalog bolumu: klip sesleri (ilk kurgudaki dogrulanmis kesimler), VO ile ayni algilanan seviyeye esitlenir
+import subprocess, pyloudnorm as pyln
+meter = pyln.Meter(SR); vo_l = meter.integrated_loudness(np.concatenate([segs[k] for k in segs.files]).astype(np.float64))
+dl = []
+for sh in promo.SHOTS:
+    if not sh.get("dlg"): continue
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", os.path.join(WORK, "sdr", sh["clip"] + ".mov"), "-vn", "-ac", "1", "-ar", str(SR),
+                          "-af", "highpass=f=80", "-f", "s16le", "-"], capture_output=True, check=True).stdout
+    x = np.frombuffer(raw, np.int16).astype(np.float32) / 32768
+    i0 = round(sh["src0"] * promo.FPS) * (SR // promo.FPS); L = sh["n"] * (SR // promo.FPS); seg = x[i0:i0 + L].copy()
+    f = int((0.010 if sh["gain"] == 0 else 0.06) * SR); r = np.linspace(0, 1, f); seg[:f] *= r; seg[-f:] *= r[::-1]
+    dl.append((sh, seg))
+sp = np.concatenate([sg for sh, sg in dl if sh["gain"] == 0]).astype(np.float64)
+dg = 10 ** ((vo_l - meter.integrated_loudness(sp)) / 20)
+for sh, seg in dl:
+    i = sh["f0"] * (SR // promo.FPS); track[i:i + len(seg)] += seg * dg * 10 ** (sh["gain"] / 20)
+print(f"diyalog kazanci {20*np.log10(dg):+.1f} dB (VO ile esitleme)")
 w = wave.open(os.path.join(WORK, "vo", "vo_track.wav"), "wb"); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
 w.writeframes((np.clip(track, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
 norm = lambda t: ["".join(re.sub(r"[^\wçğıöşü]", "", y.replace("İ", "i").replace("I", "ı").lower()) for y in t)]  # harf dizisi (kesme isareti/bolunme farki yok)
@@ -32,7 +49,9 @@ for v, a, b, secend in place:
     ok &= b <= secend
 print("== 2) Tam iz")
 ws = tr(track); got = [g.replace("ladinoz", "ladinos").replace("ladinus", "ladinos") for g in norm([x[0] for x in ws])]
-exp = norm(" ".join(dict((p, q) for p, q, r in promo.VO)[v] for v, *_ in place).split())
+DLG = "Merhaba, kolay gelsin. Hoş bulduk. Ben bir iki gün Midyat'ta kalacağım. Nasıl bir oda öneriyorsunuz? Şans odası. Teşekkürler."
+order = sorted([(a, dict((p, q) for p, q, r in promo.VO)[v]) for v, a, *_ in place] + [(next(x["f0"] for x in promo.SECS if x.get("dlg")) / promo.FPS, DLG)])
+exp = norm(" ".join(t for _, t in order).split())
 wl = [re.sub(r"[^\wçğıöşü]", "", x[0].lower()) for x in ws]; rep = [wl[i] for i in range(1, len(wl)) if wl[i] and wl[i] == wl[i - 1]]
 print("  ardisik tekrar:", rep or "yok"); print("  metin:", "TAM" if got == exp else "FARKLI")
 if got != exp:

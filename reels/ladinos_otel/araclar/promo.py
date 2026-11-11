@@ -39,21 +39,26 @@ VOT = json.load(open(VO_REAL)) if os.path.exists(VO_REAL) else {}
 SECTIONS = [
     ("intro", None, None, [("IMG_3808", 0.2, 2.6, 1, "push")], "cut", 1.2),
     ("hook", "V1", "title", [("IMG_3746", 0.3, 3.7, 1, "push"), ("IMG_3749", 3.0, 5.7, 1, "none"), ("IMG_3747", 0.3, 2.6, 1, "push")], "whipL"),
-    ("giris", "V9", None, [("IMG_3750", 0.6, 4.4, 1.3, "none"), ("IMG_3754", 2.1, 4.8, 1.2, "none"), ("IMG_3832", 0.1, 2.5, 1, "none"), ("IMG_3820", 0.5, 3.5, 1, "push")], "zoom"),
-    ("mimari", "V2", "DETAYLAR", [("IMG_3748", 0.2, 2.8, 1, "push"), ("IMG_3765", 0.1, 2.3, 1, "none"), ("IMG_3788", 2.0, 3.8, 1, "push"), ("IMG_3817", 0.8, 4.3, 1, "push")], "whipR"),
-    ("oda", "V3", "ODALAR", [("IMG_3766", 0.3, 3.6, 1, "none"), ("IMG_3767", 0.4, 3.0, 1, "none"), ("IMG_3771", 0.2, 2.8, 1, "none"), ("IMG_3786", 0.5, 3.9, 1, "push"), ("IMG_3815", 0.3, 4.8, 1, "none")], "whipR"),
-    ("banyo", None, "BANYO", [("IMG_3772", 1.4, 4.6, 1, "none"), ("SPLIT:IMG_3774@0.6|IMG_3775@0.2", 0, 1.9, 1, "none"), ("IMG_3792", 4.4, 7.4, 1, "none")], "flash", 3.6),
-    ("somine", "V4", "ŞÖMİNE KÖŞESİ", [("IMG_3825", 0.2, 3.2, 1, "push"), ("IMG_3834", 0.0, 3.2, 1.2, "none"), ("IMG_3830", 0.3, 2.6, 1, "none")], "zoom"),
-    ("teras", "V5", "TERAS", [("IMG_3806", 0.2, 4.8, 1, "push"), ("IMG_3805", 0.2, 4.8, 1, "none"), ("IMG_3807", 2.6, 6.8, 1, "none")], "whipL"),
-    ("kahvalti", "V10", "KAHVALTI & RESTORAN", [("KAHVALTI", 0.2, 5.2, 1.3, "none"), ("IMG_3798", 0.3, 4.6, 1, "none"), ("IMG_3803", 0.2, 3.2, 1, "none"), ("IMG_3804", 0.3, 4.1, 1, "none")], "whipR"),
-    ("davet", "V6", None, [("IMG_3811", 0.4, 4.7, 1.3, "none"), ("IMG_3794", 0.2, 4.1, 1, "push")], "cut"),
-    ("adres", "V7", "address", [("IMG_3749", 0.0, 4.8, 1, "push")], "zoom"),
-    ("kapanis", "V8", None, [("IMG_3784", 0.9, 3.7, 1, "none"), ("IMG_3791", 0.2, 3.2, 1, "none")], "cut"),
-    ("son", "V11", "endcard", [("IMG_3813", 0.0, 2.5, 1, "push")], "fade"),   # <- yeni cekecegin kapanis videosu buraya gelir
+    ("giris", "V9", None, [("IMG_3750", 0.6, 4.4, 1.2, "none"), ("IMG_3751", 3.0, 7.3, 1.2, "none"), ("IMG_3754", 2.1, 4.8, 1.2, "none"), ("IMG_3832", 0.1, 2.5, 1, "none")], "whipR"),
+    # gercek diyalog: kaynak araliklari ilk kurgunun kesim kontrolunden (GECTI) birebir alinmistir
+    ("karsilama", "DIALOG", "RESEPSİYON", [("IMG_3755", 1.60, 4.80, "z1.00", 0, None), ("IMG_3756", 2.10, 2.37, "z1.00", 0, None),
+        ("IMG_3756", 2.60, 3.10, "z1.07", 0, None), ("IMG_3756", 3.70, 7.63, "z1.15", 0, None), ("IMG_3759", 0.50, 3.60, "z1.00", -6, None),
+        ("IMG_3762", 0.00, 1.87, "z1.00", -14, None), ("IMG_3763", 1.30, 3.30, "z1.00", 0, "ŞANS ODASI"), ("IMG_3764", 0.60, 2.93, "z1.00", 0, None)], "zoom"),
+    ("mimari", "V2", "DETAYLAR", [("IMG_3748", 0.2, 2.8, 1, "push"), ("IMG_3765", 0.1, 2.3, 1, "none"), ("IMG_3796", 0.1, 1.9, 1, "push"), ("IMG_3788", 2.0, 3.8, 1, "push"), ("IMG_3816", 3.5, 7.5, 1, "none"), ("IMG_3817", 0.8, 4.3, 1, "push")], "whipR"),
+    ("oda", "V3", "ODALAR", [("IMG_3766", 0.3, 3.6, 1, "none"), ("IMG_3776", 0.2, 5.4, 1, "none"), ("IMG_3767", 0.4, 3.0, 1, "none"), ("IMG_3771", 0.2, 2.8, 1, "none"), ("IMG_3787", 3.0, 5.7, 1, "none"), ("IMG_3770", 0.3, 3.4, 1, "none"), ("IMG_3786", 0.5, 3.9, 1, "push")], "whipR"),
+    ("banyo", None, "BANYO", [("IMG_3772", 1.4, 4.6, 1, "none"), ("SPLIT:IMG_3774@0.6|IMG_3775@0.2", 0, 1.9, 1, "none"), ("IMG_3773", 2.0, 4.6, 1, "none"), ("IMG_3792", 4.4, 7.4, 1, "none")], "flash", 4.8),
+    ("somine", "V4", "ŞÖMİNE KÖŞESİ", [("IMG_3825", 0.2, 3.2, 1, "push"), ("IMG_3834", 0.0, 3.2, 1.2, "none"), ("IMG_3830", 0.3, 2.6, 1, "none"), ("IMG_3815", 0.3, 4.8, 1, "none")], "zoom"),
+    ("teras", "V5", "TERAS", [("IMG_3806", 0.2, 4.8, 1, "push"), ("IMG_3805", 0.2, 4.8, 1, "none"), ("IMG_3807", 2.6, 6.8, 1, "none"), ("IMG_3810", 2.0, 4.5, 1, "none")], "whipL"),
+    ("kahvalti", "V10", "KAHVALTI & RESTORAN", [("KAHVALTI", 0.2, 5.2, 1.3, "none"), ("IMG_3799", 0.3, 5.6, 1, "none"), ("IMG_3800", 1.0, 4.9, 1, "none"), ("IMG_3802", 2.0, 5.4, 1, "none"), ("IMG_3803", 0.2, 3.2, 1, "none"), ("IMG_3804", 0.3, 4.1, 1, "none")], "whipR"),
+    ("davet", "V6", None, [("IMG_3811", 0.4, 4.7, 1.3, "none"), ("IMG_3785", 0.0, 2.0, 1, "push"), ("IMG_3794", 0.2, 4.1, 1, "push")], "cut"),
+    ("adres", "V7", "address", [("IMG_3749", 0.0, 5.8, 2, "push"), ("IMG_3746", 2.0, 3.9, 1, "none")], "zoom"),
+    ("kapanis", "V8", None, [("IMG_3784", 0.9, 3.7, 1, "none"), ("IMG_3814", 0.0, 1.8, 1, "none"), ("IMG_3791", 0.2, 3.2, 1, "none")], "cut"),
+    ("son", "V11", "endcard", [("IMG_3811", 2.9, 4.8, 1, "none"), ("IMG_3813", 0.0, 2.5, 1.3, "push")], "fade"),
 ]
-NO_PERSON = {"IMG_3808", "IMG_3746", "IMG_3749", "IMG_3832", "IMG_3820", "IMG_3748", "IMG_3765", "IMG_3788", "IMG_3817",
-             "IMG_3766", "IMG_3767", "IMG_3771", "IMG_3786", "IMG_3815", "IMG_3772", "IMG_3774", "IMG_3775", "IMG_3792",
-             "IMG_3825", "IMG_3830", "IMG_3806", "IMG_3805", "IMG_3807", "KAHVALTI", "IMG_3798", "IMG_3803", "IMG_3804", "IMG_3794"}
+NO_PERSON = {"IMG_3808", "IMG_3746", "IMG_3749", "IMG_3832", "IMG_3748", "IMG_3765", "IMG_3788", "IMG_3817", "IMG_3796", "IMG_3816",
+             "IMG_3766", "IMG_3767", "IMG_3771", "IMG_3786", "IMG_3776", "IMG_3787", "IMG_3770", "IMG_3815", "IMG_3772", "IMG_3774",
+             "IMG_3775", "IMG_3773", "IMG_3792", "IMG_3825", "IMG_3830", "IMG_3806", "IMG_3805", "IMG_3807", "IMG_3810", "KAHVALTI",
+             "IMG_3798", "IMG_3799", "IMG_3800", "IMG_3802", "IMG_3803", "IMG_3804", "IMG_3794", "IMG_3785", "IMG_3762"}
 TRANS_FR = {"cut": 0, "whipL": 5, "whipR": 5, "zoom": 6, "flash": 4, "fade": 12}
 VO_LEAD, VO_TAIL = 0.3, 0.35   # bolum basinda VO oncesi / sonrasi nefes payi
 
@@ -79,17 +84,26 @@ def build():
     shots, secs, t = [], [], 0.0
     for sec in SECTIONS:
         sid, v, title, lst, tr = sec[:5]
+        if v == "DIALOG":
+            f0 = round(t * FPS); acc = 0
+            for k, (clip, a, b, mv, g, lab) in enumerate(lst):
+                n = round((b - a) * FPS)
+                shots.append(dict(clip=clip, src0=round(a * FPS) / FPS, n=n, f0=f0 + acc, sec=sid, move=mv, gain=g, label=lab, dlg=True,
+                                  trans=(tr if k == len(lst) - 1 else "cut")))
+                acc += n
+            secs.append(dict(id=sid, vo=None, title=title, f0=f0, n=acc, vo_t=None, dlg=True)); t += acc / FPS; continue
         if v: L = snap(VO_LEAD + vo_dur(v) + VO_TAIL)
         else: L = sec[5]
         f0 = round(t * FPS); N = round(L * FPS)
         secs.append(dict(id=sid, vo=v, title=title, f0=f0, n=N, vo_t=(t + VO_LEAD) if v else None))
         # sure dagitimi: yarim vurus (9 kare) birimleriyle, agirlikla orantili, her cekim en az 1 birim
         q = 9; units = N // q; wsum = sum(x[3] for x in lst)
-        while units < len(lst) and len(lst) > 1: lst = lst[:-1]; wsum = sum(x[3] for x in lst)  # bolum cok kisaysa cekim azalt
-        alloc = [max(1, int(units * x[3] / wsum)) for x in lst]
+        while units < 3 * len(lst) and len(lst) > 1: lst = lst[:-1]; wsum = sum(x[3] for x in lst)  # bolum cok kisaysa cekim azalt
+        alloc = [max(3, int(units * x[3] / wsum)) for x in lst]
         k = 0
         while sum(alloc) < units: alloc[k % len(alloc)] += 1; k += 1
         while sum(alloc) > units: j = int(np.argmax(alloc)); alloc[j] -= 1
+        assert min(alloc) >= 3, (sid, alloc)
         alloc = [a_ * q for a_ in alloc]; alloc[-1] += N - sum(alloc)
         acc = 0
         for k, (clip, a, b, w, move) in enumerate(lst):
@@ -99,6 +113,7 @@ def build():
                 s0, _ = best_start(clip, a, b, n / FPS)
                 n_av = len(AN[clip]) - round(s0 * FPS)
                 if n > n_av: s0 = max(0.0, (len(AN[clip]) - n) / FPS)
+                if n > len(AN[clip]): print(f"UYARI: {sid} {clip} kaynak {len(AN[clip])} kare < {n} kare (son kare donar)", file=sys.stderr)
             shots.append(dict(clip=clip, src0=s0, n=n, f0=f0 + acc, sec=sid, move=move,
                               trans=(tr if k == len(lst) - 1 else "cut")))
             acc += n
@@ -143,6 +158,7 @@ def scale_about(im, z, cx=540, cy=960):
 
 def move_zoom(s, k):
     p = k / max(1, s["n"] - 1)
+    if s["move"].startswith("z"): return float(s["move"][1:])
     return {"push": 1.0 + 0.06 * p, "pull": 1.06 - 0.06 * p}.get(s["move"], 1.0)
 
 def raw(s, k):
@@ -332,7 +348,24 @@ def subword(w, active, sz=62):
     key = (w, active, sz)
     if key not in _swc: _swc[key] = timg(up(w), subfont(sz), GOLD if active else WHITE, stroke=8)
     return _swc[key]
+DLG_WORDS = json.load(open(os.path.join(WORK, "vo", "dlg_words.json"))) if os.path.exists(os.path.join(WORK, "vo", "dlg_words.json")) else []
 SUBLINES = []
+for s in SECS:
+    if not s.get("dlg"): continue
+    ws = []
+    for clip, src, w in DLG_WORDS:
+        for sh in SHOTS:
+            if sh["sec"] == s["id"] and sh["clip"] == clip and sh["src0"] - 0.02 <= src < sh["src0"] + sh["n"] / FPS:
+                ws.append((sh["f0"] / FPS + src - sh["src0"], 0, w))
+    sent, cur = [], []
+    for w in ws:
+        cur.append(w)
+        if w[2][-1] in ".?!": sent.append(cur); cur = []
+    if cur: sent.append(cur)
+    for c in [c2 for sc in sent for c2 in chunks(sc)]:
+        nxt = [x for x in ws if x[0] > c[-1][0]]
+        end = min(c[-1][0] + 1.1, nxt[0][0] - 0.02) if nxt else c[-1][0] + 1.1
+        SUBLINES.append((c[0][0], end, c))
 for s in SECS:
     if not s["vo"]: continue
     ws = vo_words(s["vo"], s["vo_t"]); cs = chunks(ws)
@@ -352,6 +385,12 @@ for s in SECS:
     elif s["title"] == "address": EV.append((t0 + 0.25, t1 - 0.1, ADDR, 490, 1100))
     elif s["title"] == "endcard": EV.append((t0 + 0.2, TOTAL / FPS, END, 490, 520))
     elif s["title"]: EV.append((t0 + 0.12, min(t1, t0 + 2.4) - 0.1, HEADERS[s["title"]], 490, 330))
+
+for sh in SHOTS:
+    if sh.get("label"):
+        a = sh["f0"] / FPS; EV.append((a + 0.1, a + sh["n"] / FPS - 0.1, section_header(sh["label"]), 490, 330))
+for s in SECS:
+    if s.get("dlg") and s["title"]: EV.append((s["f0"] / FPS + 0.12, s["f0"] / FPS + 2.4, HEADERS.get(s["title"]) or section_header(s["title"]), 490, 330))
 
 def render(n):
     t = n / FPS; c = Image.new("RGBA", (W, H), (0, 0, 0, 0))

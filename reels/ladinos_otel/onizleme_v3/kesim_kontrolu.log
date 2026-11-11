@@ -1,17 +1,18 @@
+diyalog kazanci -5.3 dB (VO ile esitleme)
 == 1) Cumle bazinda (ilk/son kelime guveni < 0,6 ise kesik hece suphesi)
   V1     1.50-  8.02 (bolum sonu   8.40)  ilk/son p=(0.94, 1.0)  TAM  -> temiz
   V9     8.70- 16.00 (bolum sonu  16.50)  ilk/son p=(0.35, 1.0)  TAM  -> temiz
-  V2    16.80- 23.58 (bolum sonu  24.00)  ilk/son p=(0.98, 1.0)  TAM  -> temiz
-  V3    24.30- 30.50 (bolum sonu  30.90)  ilk/son p=(0.99, 1.0)  TAM  -> temiz
-  V4    34.80- 39.66 (bolum sonu  40.20)  ilk/son p=(0.98, 1.0)  TAM  -> temiz
-  V5    40.50- 46.32 (bolum sonu  46.80)  ilk/son p=(0.97, 1.0)  TAM  -> temiz
-  V10   47.10- 52.73 (bolum sonu  53.10)  ilk/son p=(0.97, 1.0)  TAM  -> temiz
-  V6    53.40- 59.36 (bolum sonu  60.00)  ilk/son p=(0.96, 1.0)  TAM  -> temiz
-  V7    60.30- 65.65 (bolum sonu  66.00)  ilk/son p=(0.68, 1.0)  TAM  -> temiz
-  V8    66.30- 70.76 (bolum sonu  71.40)  ilk/son p=(0.88, 1.0)  TAM  -> temiz
-  V11   71.70- 75.02 (bolum sonu  75.60)  ilk/son p=(0.96, 1.0)  TAM  -> temiz
+  V2    34.00- 40.78 (bolum sonu  41.20)  ilk/son p=(0.98, 1.0)  TAM  -> temiz
+  V3    41.50- 47.70 (bolum sonu  48.10)  ilk/son p=(0.99, 1.0)  TAM  -> temiz
+  V4    53.20- 58.06 (bolum sonu  58.60)  ilk/son p=(0.98, 1.0)  TAM  -> temiz
+  V5    58.90- 64.72 (bolum sonu  65.20)  ilk/son p=(0.97, 1.0)  TAM  -> temiz
+  V10   65.50- 71.13 (bolum sonu  71.50)  ilk/son p=(0.97, 1.0)  TAM  -> temiz
+  V6    71.80- 77.76 (bolum sonu  78.40)  ilk/son p=(0.96, 1.0)  TAM  -> temiz
+  V7    78.70- 84.05 (bolum sonu  84.40)  ilk/son p=(0.68, 1.0)  TAM  -> temiz
+  V8    84.70- 89.16 (bolum sonu  89.80)  ilk/son p=(0.88, 1.0)  TAM  -> temiz
+  V11   90.10- 93.42 (bolum sonu  94.00)  ilk/son p=(0.96, 1.0)  TAM  -> temiz
 == 2) Tam iz
   ardisik tekrar: yok
   metin: FARKLI
-  fark: ['- midyatınkendinehastaşsokaklarındabugünsizlerleçokgüzelbirkonaklamanoktasıkeşfedeceğizoteleadımattığımızilkandanitibarenmidyatıntarihidokusunuvekendineözgüatmosferinihissedebiliyorsunuztaşmimarisizarifdetaylarıvesıcakatmosferiyleburasıgerçektençoközelbiryerodalarınkonforundanortakkullanımalanlarınaherköşesindeayrıbirgüzelliksaklıözelliklelobidekişömineköşesiakşamlarıayrıbirkeyifterastakimanzarasıylamidyatıbirdeburadanizlemekbambaşkabirkeyifgünegüzelbirbaşlangıçyapmakisteyenleriçinkahvaltıdetayınıdaunutmamakgerekeğersizindeyolunuzmidyatadüşerseburayılistenizeeklemeyiunutmayınladinosotelmidyatakçakayamahallesiatatürkbulvarındabenbugünburayısizlerlekeşfetmektençokkeyifaldımyenikeşiflerdegörüşmeküzere', '+ midyatınkendinehastaşsokaklarındabugünsizlerleçokgüzelbirkonaklamanoktasıkeşfedeceğizoteliadımattığımızilkandanitibarenmidyatıntarihidokusunuvekendineözgüatmosferinihissedebiliyorsunuztaşmimarisizarifdetaylarıvesıcakatmosferiyleburasıgerçektençoközelbiryerodalarınkonforundanortakkullanımalanlarınaherköşesindeayrıbirgüzelliksaklıözelliklelobidekişömineköşesiakşamlarıayrıbirkeyifterastakimanzarasıylamidyatıbirdeburadanizlemekbambaşkabirkeyifgünegüzelbirbaşlangıçyapmakisteyenleriçinkahvaltıdetayınıdaunutmamakgerekeğersizindeyolunuzmidyatadüşerseburayılistenizeeklemeyiunutmayınladinosotelmidyatakçakayamahallesiatatürkbulvarındabenbugünburayısizlerlekeşfetmektençokkeyifaldımyenikeşiflerdegörüşmeküzere']
+  fark: ['- midyatınkendinehastaşsokaklarındabugünsizlerleçokgüzelbirkonaklamanoktasıkeşfedeceğizoteleadımattığımızilkandanitibarenmidyatıntarihidokusunuvekendineözgüatmosferinihissedebiliyorsunuzmerhabakolaygelsinhoşbuldukbenbirikigünmidyattakalacağımnasılbirodaöneriyorsunuzşansodasıteşekkürlertaşmimarisizarifdetaylarıvesıcakatmosferiyleburasıgerçektençoközelbiryerodalarınkonforundanortakkullanımalanlarınaherköşesindeayrıbirgüzelliksaklıözelliklelobidekişömineköşesiakşamlarıayrıbirkeyifterastakimanzarasıylamidyatıbirdeburadanizlemekbambaşkabirkeyifgünegüzelbirbaşlangıçyapmakisteyenleriçinkahvaltıdetayınıdaunutmamakgerekeğersizindeyolunuzmidyatadüşerseburayılistenizeeklemeyiunutmayınladinosotelmidyatakçakayamahallesiatatürkbulvarındabenbugünburayısizlerlekeşfetmektençokkeyifaldımyenikeşiflerdegörüşmeküzere', '+ midyatınkendinehastaşsokaklarındabugünsizlerleçokgüzelbirkonaklamanoktasıkeşfedeceğizoteliadımattığımızilkandanitibarenmidyatıntarihidokusunuvekendineözgüatmosferinihissedebiliyorsunuzeyvahkolaygelsinhoşbuldukbenbirikigünmidyattakalacağımnasılbirodaöneriyorsunuzşansadasıteşekkürlertaşmimarisizarifdetaylarıvesıcakatmosferiyleburasıgerçektençoközelbiryerodalarınkonforundanortakkullanımalanlarınaherköşesindeayrıbirgüzelliksaklıözelliklelobidekişömineköşesiakşamlarıayrıbirkeyifterastakimanzarasıylamidyatıbirdeburadanizlemekbambaşkabirkeyifgünegüzelbirbaşlangıçyapmakisteyenleriçinkahvaltıdetayınıdaunutmamakgerekeğersizindeyolunuzmidyatadüşerseburayılistenizeeklemeyiunutmayınladinosotelmidyatakçakayamahallesiatatürkbulvarındabenbugünburayısizlerlekeşfetmektençokkeyifaldımyenikeşiflerdegörüşmeküzere']
 SONUC: KALDI
