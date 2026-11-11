@@ -424,6 +424,13 @@ if __name__ == "__main__":
         sh = Image.new("RGB", (cols * 308 + 8, rows * 541 + 8), "white")
         for i, th in enumerate(tiles): sh.paste(th, (8 + (i % cols) * 308, 8 + (i // cols) * 541))
         sh.save(os.path.join(od, "ornek_kareler.jpg"), quality=86); print("->", od)
+    elif MODE == "range":   # paralel render icin: sadece goruntu, [a, b) kareleri
+        out, a, b = ARG[0], int(ARG[1]), min(int(ARG[2]), TOTAL)
+        p = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
+                              "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", "-color_primaries", "bt709",
+                              "-color_trc", "bt709", "-colorspace", "bt709", out], stdin=subprocess.PIPE)
+        for n in range(a, b): p.stdin.write(np.asarray(compose(n)).tobytes())
+        p.stdin.close(); p.wait(); print("yazildi:", out)
     elif MODE == "full":
         out = ARG[0]; aud = ARG[1] if len(ARG) > 1 else None
         cmd = ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-"]
