@@ -106,7 +106,7 @@ for i, s in enumerate(promo.SHOTS[:-1]):
     if s["trans"] in ("whipL", "whipR"): w = whoosh(); add("fx", w, tb - len(w) / SR / 2, -0.5 if s["trans"] == "whipL" else 0.5, 0.35)
     elif s["trans"] == "zoom": r = riser(); add("fx", r, tb - len(r) / SR, 0, 0.22); add("fx", impact(), tb, 0, 0.45)
     elif s["trans"] == "flash": add("fx", shimmer(), tb - 0.1, 0, 0.25)
-add("fx", impact(), SEC["hook"][0] + 0.15, 0, 0.5)            # baslik karti
+add("fx", impact(), SEC["hook"][0] + 0.15, 0, 0.5)  # acilis            # baslik karti
 add("fx", shimmer(1.6), SEC["son"][0] + 0.2, 0, 0.22)          # kapanis karti
 
 # ---- miks --------------------------------------------------------------------------------

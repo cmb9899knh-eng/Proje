@@ -37,14 +37,13 @@ VOT = json.load(open(VO_REAL)) if os.path.exists(VO_REAL) else {}
 # 2) BOLUMLER: (id, vo_satiri | None, baslik, [(klip, aralik_bas, aralik_son, agirlik, hareket)], cikis_gecisi)
 #    hareket: "push" yavas ileri zoom, "pull" geri, "none"; gecis: "cut" | "whipL" | "whipR" | "zoom" | "flash" | "fade"
 SECTIONS = [
-    ("intro", None, None, [("IMG_3808", 0.2, 2.6, 1, "push")], "cut", 1.2),
     ("hook", "V1", "title", [("IMG_3746", 0.3, 3.7, 1, "push"), ("IMG_3749", 3.0, 5.7, 1, "none"), ("IMG_3747", 0.3, 2.6, 1, "push")], "whipL"),
     ("giris", "V9", None, [("IMG_3750", 0.6, 4.4, 1.2, "none"), ("IMG_3751", 3.0, 7.3, 1.2, "none"), ("IMG_3754", 2.1, 4.8, 1.2, "none"), ("IMG_3832", 0.1, 2.5, 1, "none")], "whipR"),
     # gercek diyalog: kaynak araliklari ilk kurgunun kesim kontrolunden (GECTI) birebir alinmistir
     ("karsilama", "DIALOG", "RESEPSİYON", [("IMG_3755", 1.60, 4.80, "z1.00", 0, None), ("IMG_3756", 2.10, 2.37, "z1.00", 0, None),
         ("IMG_3756", 2.60, 3.10, "z1.07", 0, None), ("IMG_3756", 3.70, 7.63, "z1.15", 0, None), ("IMG_3759", 0.50, 3.60, "z1.00", -6, None),
         ("IMG_3762", 0.00, 1.87, "z1.00", -14, None), ("IMG_3763", 1.30, 3.30, "z1.00", 0, "ŞANS ODASI"), ("IMG_3764", 0.60, 2.93, "z1.00", 0, None)], "zoom"),
-    ("mimari", "V2", "DETAYLAR", [("IMG_3748", 0.2, 2.8, 1, "push"), ("IMG_3765", 0.1, 2.3, 1, "none"), ("IMG_3796", 0.1, 1.9, 1, "push"), ("IMG_3788", 2.0, 3.8, 1, "push"), ("IMG_3816", 3.5, 7.5, 1, "none"), ("IMG_3817", 0.8, 4.3, 1, "push")], "whipR"),
+    ("mimari", "V2", "DETAYLAR", [("IMG_3748", 0.2, 2.8, 1, "push"), ("IMG_3765", 0.1, 2.3, 1, "none"), ("IMG_3796", 0.1, 1.9, 1, "push"), ("IMG_3788", 2.0, 3.8, 1, "push"), ("IMG_3816", 3.5, 7.5, 1.3, "none")], "whipR"),
     ("oda", "V3", "ODALAR", [("IMG_3766", 0.3, 3.6, 1, "none"), ("IMG_3776", 0.2, 5.4, 1, "none"), ("IMG_3767", 0.4, 3.0, 1, "none"), ("IMG_3771", 0.2, 2.8, 1, "none"), ("IMG_3787", 3.0, 5.7, 1, "none"), ("IMG_3770", 0.3, 3.4, 1, "none"), ("IMG_3786", 0.5, 3.9, 1, "push")], "whipR"),
     ("banyo", None, "BANYO", [("IMG_3772", 1.4, 4.6, 1, "none"), ("SPLIT:IMG_3774@0.6|IMG_3775@0.2", 0, 1.9, 1, "none"), ("IMG_3773", 2.0, 4.6, 1, "none"), ("IMG_3792", 4.4, 7.4, 1, "none")], "flash", 4.8),
     ("somine", "V4", "ŞÖMİNE KÖŞESİ", [("IMG_3825", 0.2, 3.2, 1, "push"), ("IMG_3834", 0.0, 3.2, 1.2, "none"), ("IMG_3830", 0.3, 2.6, 1, "none"), ("IMG_3815", 0.3, 4.8, 1, "none")], "zoom"),
@@ -52,8 +51,8 @@ SECTIONS = [
     ("kahvalti", "V10", "KAHVALTI & RESTORAN", [("KAHVALTI", 0.2, 5.2, 1.3, "none"), ("IMG_3799", 0.3, 5.6, 1, "none"), ("IMG_3800", 1.0, 4.9, 1, "none"), ("IMG_3802", 2.0, 5.4, 1, "none"), ("IMG_3803", 0.2, 3.2, 1, "none"), ("IMG_3804", 0.3, 4.1, 1, "none")], "whipR"),
     ("davet", "V6", None, [("IMG_3811", 0.4, 4.7, 1.3, "none"), ("IMG_3785", 0.0, 2.0, 1, "push"), ("IMG_3794", 0.2, 4.1, 1, "push")], "cut"),
     ("adres", "V7", "address", [("IMG_3749", 0.0, 5.8, 2, "push"), ("IMG_3746", 2.0, 3.9, 1, "none")], "zoom"),
-    ("kapanis", "V8", None, [("IMG_3784", 0.9, 3.7, 1, "none"), ("IMG_3814", 0.0, 1.8, 1, "none"), ("IMG_3791", 0.2, 3.2, 1, "none")], "cut"),
-    ("son", "V11", "endcard", [("IMG_3811", 2.9, 4.8, 1, "none"), ("IMG_3813", 0.0, 2.5, 1.3, "push")], "fade"),
+    ("kapanis", "V8", None, [("IMG_3784", 0.9, 3.7, 1.7, "none"), ("IMG_3814", 0.0, 1.8, 1, "none")], "cut"),
+    ("son", "V11", "endcard", [("IMG_3817", 1.0, 4.3, 1, "push"), ("IMG_3813", 0.0, 2.5, 1.6, "push")], "fade"),
 ]
 NO_PERSON = {"IMG_3808", "IMG_3746", "IMG_3749", "IMG_3832", "IMG_3748", "IMG_3765", "IMG_3788", "IMG_3817", "IMG_3796", "IMG_3816",
              "IMG_3766", "IMG_3767", "IMG_3771", "IMG_3786", "IMG_3776", "IMG_3787", "IMG_3770", "IMG_3815", "IMG_3772", "IMG_3774",
