@@ -1,0 +1,60 @@
+== 1) Kaynak VAD: segment sinirlari konusmayi bolmuyor mu (tolerans 30 ms)
+  s01 IMG_3746  0.40- 2.60  -> temiz
+  s02 IMG_3750  1.40- 4.70  -> temiz
+  s03 IMG_3754  2.20- 4.70  -> temiz
+  s04 IMG_3755  1.60- 4.80  -> @4.80s VAD birlesik bolgede ama sinir sessiz (-59 dB)
+  s05 IMG_3756  2.10- 2.37  -> @2.10s VAD birlesik bolgede ama sinir sessiz (-51 dB); @2.37s VAD birlesik bolgede ama sinir sessiz (-55 dB)
+  s06 IMG_3756  2.60- 3.10  -> @2.60s VAD birlesik bolgede ama sinir sessiz (-59 dB)
+  s07 IMG_3756  3.70- 7.63  -> @7.63s VAD birlesik bolgede ama sinir sessiz (-67 dB)
+  s08 IMG_3759  0.50- 3.60  -> temiz
+  s09 IMG_3762  0.00- 1.87  -> temiz
+  s10 IMG_3763  1.30- 3.30  -> temiz
+  s11 IMG_3764  0.60- 2.93  -> temiz
+  s12 IMG_3765  0.30- 2.30  -> temiz
+  s13 IMG_3766  0.30- 3.00  -> temiz
+  s14 IMG_3767  0.40- 2.90  -> temiz
+  s15 IMG_3771  0.20- 2.00  -> temiz
+  s16 IMG_3770  0.30- 3.10  -> temiz
+  s17 IMG_3772  1.50- 4.50  -> temiz
+  s18 IMG_3774  0.60- 2.60  -> temiz
+  s18 IMG_3775  0.20- 2.20  -> temiz
+  s19 IMG_3787  0.20- 3.20  -> temiz
+  s20 IMG_3788  2.10- 3.80  -> temiz
+  s21 IMG_3784  2.13- 3.70  -> temiz
+== 2) Dialog steminde kesim noktalari (+-40 ms)
+    8.00s  once -180.0 dB | sonra  -60.5 dB -> temiz
+   11.20s  once  -54.6 dB | sonra  -51.2 dB -> temiz
+   11.47s  once  -55.4 dB | sonra  -61.0 dB -> temiz
+   11.97s  once  -52.4 dB | sonra  -71.4 dB -> temiz
+   15.90s  once  -65.6 dB | sonra -180.0 dB -> temiz
+   20.87s  once -180.0 dB | sonra  -60.6 dB -> temiz
+   22.87s  once  -73.5 dB | sonra  -72.2 dB -> temiz
+   25.20s  once  -69.0 dB | sonra -180.0 dB -> temiz
+== 3) Dialog stemi yeniden transkripsiyon
+    7.89-  8.53 Merhaba,         p=0.92
+    8.57-  8.77 kolay            p=0.98
+    8.77-  9.37 gelsin.          p=0.97
+    9.99- 10.41 Hoş              p=0.99
+   10.41- 11.01 bulduk.          p=0.99
+   11.05- 11.59 Ben              p=0.98
+   11.59- 12.13 bir              p=0.52
+   12.13- 12.41 iki              p=0.98
+   12.41- 12.61 gün              p=1.00
+   12.61- 12.97 midyatta         p=0.89
+   12.97- 13.51 kalacağım.       p=1.00
+   13.75- 14.21 Nasıl            p=1.00
+   14.21- 14.43 bir              p=0.98
+   14.43- 14.85 oda              p=0.99
+   14.85- 15.83 öneriyorsunuz?   p=1.00
+   21.19- 21.61 Şans             p=1.00
+   21.61- 22.07 odası.           p=0.93
+   23.71- 24.55 Teşekkürler.     p=1.00
+  beklenen: merhaba kolay gelsin hoş bulduk ben bir iki gün midyatta kalacağım nasıl bir oda öneriyorsunuz şans odası teşekkürler
+  bulunan : merhaba kolay gelsin hoş bulduk ben bir iki gün midyatta kalacağım nasıl bir oda öneriyorsunuz şans odası teşekkürler
+  ardisik tekrar: yok
+  dusuk guvenli kelime: yok
+  metin eslesmesi: TAM
+== 4) Tam ses stemi (b-roll ortam dahil)
+  bulunan: merhaba kolay gelsin hoş bulduk ben bir iki gün midyatta kalacağım nasıl bir oda öneriyorsunuz şans odası teşekkürler
+  b-roll'da ek konusma: yok
+SONUC: GECTI
